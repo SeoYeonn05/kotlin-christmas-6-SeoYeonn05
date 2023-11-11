@@ -1,34 +1,7 @@
 package christmas.model
 
-import christmas.util.Constants
-import christmas.util.MenuConstants
-
-enum class MenuCategory {
-    APPETIZER,
-    MAIN_COURSE,
-    DESSERT,
-    BEVERAGE
+class Menu(private val menuItem: MenuItem, private val orderedMenuCount: Int){
+    init {
+        //예외처리
+    }
 }
-
-enum class Menu(
-    private val menuName: String,
-    private val menuPrice: Int,
-    private val menuCategory: MenuCategory
-) {
-    MUSHROOM_SOUP(MenuConstants.MUSHROOM_SOUP, 6000, MenuCategory.APPETIZER),
-    TAPAS(MenuConstants.TAPAS, 5500, MenuCategory.APPETIZER),
-    CAESAR_SALAD(MenuConstants.CAESAR_SALAD, 8000, MenuCategory.APPETIZER),
-    T_BONE_STEAK(MenuConstants.T_BONE_STEAK, 55000, MenuCategory.MAIN_COURSE),
-    BBQ_RIBS(MenuConstants.BBQ_RIBS, 54000, MenuCategory.MAIN_COURSE),
-    SEAFOOD_PASTA(MenuConstants.SEAFOOD_PASTA, 35000, MenuCategory.MAIN_COURSE),
-    CHRISTMAS_PASTA(MenuConstants.CHRISTMAS_PASTA, 25000, MenuCategory.MAIN_COURSE),
-    CHOCOLATE_CAKE(MenuConstants.CHOCOLATE_CAKE, 15000, MenuCategory.DESSERT),
-    ICE_CREAM(MenuConstants.ICE_CREAM, 5000, MenuCategory.DESSERT),
-    ZERO_COLA(MenuConstants.ZERO_COLA, 3000, MenuCategory.BEVERAGE),
-    RED_WINE(MenuConstants.RED_WINE, 60000, MenuCategory.BEVERAGE),
-    CHAMPAGNE(MenuConstants.CHAMPAGNE, 25000, MenuCategory.BEVERAGE);
-}
-
-
-
-
