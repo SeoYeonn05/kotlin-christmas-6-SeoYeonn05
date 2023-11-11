@@ -1,4 +1,4 @@
-package christmas.exception
+package christmas.validation.exception
 
 import christmas.util.constant.ErrorConstants
 import kotlin.IllegalStateException
