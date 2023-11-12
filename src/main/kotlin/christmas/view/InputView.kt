@@ -1,9 +1,5 @@
 package christmas.view
 
-import christmas.util.InputHandler
-import christmas.util.constant.Constants
-import christmas.validation.InputValidator
-
 class InputView {
     private val print = Printer()
     private val inputProcessor = InputProcessor()
