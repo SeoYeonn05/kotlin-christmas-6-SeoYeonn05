@@ -8,13 +8,15 @@ class InputView {
     private val print = Printer()
     private val inputProcessor = InputProcessor()
 
-    fun printStartMessage(){
+    fun printStartMessage() {
         print.printStartMessage()
     }
-    fun requestReservationDate():String{
+
+    fun requestReservationDate(): String {
         print.printRequestReservationDateMessage()
         return inputProcessor.requestReservationDate()
     }
+
     fun requestReservationMenu(): String {
         print.printRequestReservationMenuMessage()
         return inputProcessor.requestReservationMenu()
