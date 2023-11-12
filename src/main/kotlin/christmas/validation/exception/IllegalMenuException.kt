@@ -12,7 +12,7 @@ class IllegalMenuException(
 
     companion object {
         val invalidMenuItem = IllegalStateException(ErrorConstants.INVALID_MENU_ERROR)
-        val nonPositiveMenuCount = IllegalStateException(ErrorConstants.INVALID_MENU_ERROR)
+        val invalidMenuCount = IllegalStateException(ErrorConstants.INVALID_MENU_ERROR)
         val invalidMenuFormat = IllegalStateException(ErrorConstants.INVALID_MENU_ERROR)
         val duplicateMenuItem = IllegalStateException(ErrorConstants.INVALID_MENU_ERROR)
     }
