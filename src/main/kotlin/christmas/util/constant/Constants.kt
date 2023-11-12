@@ -21,6 +21,8 @@ object Constants {
     const val SPECIAL_DISCOUNT = "특별 할인:"
     const val GIVEAWAY_PROMOTION = "증정 이벤트:"
     const val WON = "원"
+    const val NO_VALUE = "없음"
+    const val UNIT = "개"
 
     fun getPromotionBenefitsPreviewMessage(date: Int): String {
         promotionDate = date
