@@ -1,6 +1,6 @@
 package christmas.view
 
-import christmas.model.Menu
+import christmas.model.MenuOrder
 
 class OutputView {
     private val print = Printer()
@@ -8,7 +8,7 @@ class OutputView {
     fun printPreviewPromotionMessage(){
         print.printPreviewPromotionMessage()
     }
-    fun printOrderedMenu(orderedMenu: List<Menu>){
+    fun printOrderedMenu(orderedMenu: List<MenuOrder>){
         print.printOrderedMenuMessage()
 
     }
