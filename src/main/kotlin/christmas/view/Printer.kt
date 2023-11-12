@@ -1,8 +1,6 @@
 package christmas.view
 
-import christmas.util.InputHandler
 import christmas.util.constant.Constants
-import christmas.validation.InputValidator
 
 class Printer {
     internal fun printStartMessage() {
