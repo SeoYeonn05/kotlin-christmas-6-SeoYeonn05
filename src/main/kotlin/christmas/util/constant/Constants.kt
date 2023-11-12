@@ -1,7 +1,8 @@
 package christmas.util.constant
 
 object Constants {
-    private const val PROMOTION_MONTH = 12
+    const val PROMOTION_YEAR = 2023
+    const val PROMOTION_MONTH = 12
     private const val promotionDate = 3
     const val START_MESSAGE = "안녕하세요! 우테코 식당 ${PROMOTION_MONTH}월 이벤트 플래너입니다."
     const val REQUEST_RESERVATION_DATE = "${PROMOTION_MONTH}월 중 식당 예약 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)"
