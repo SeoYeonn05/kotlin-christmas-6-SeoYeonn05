@@ -1,5 +1,6 @@
 package christmas.model
 
+import christmas.util.DataFormatter
 import christmas.util.DayOfWeekChecker
 
 enum class DayOfWeekType(val dayOfWeekNum: Int) {
@@ -24,16 +25,22 @@ enum class DiscountPromotion(private val promotionRange: List<Int>) {
     }
 }
 
-class PromotionDate(private val reservationDate: Int) {
+class PromotionDate(private val inputReservationDate: String) {
     private lateinit var availablePromotions: MutableMap<DiscountPromotion, Boolean>
+    private val reservationDate: Int
     private val dayOfWeek = DayOfWeekChecker()
 
     init {
+        this.reservationDate = convertReservationDate()
         checkPromotionDate()
     }
 
     fun getAvailablePromotions(): MutableMap<DiscountPromotion, Boolean> {
         return availablePromotions
+    }
+
+    private fun convertReservationDate(): Int {
+        return DataFormatter().parseToInt(inputReservationDate)
     }
 
     private fun checkPromotionDate() {
