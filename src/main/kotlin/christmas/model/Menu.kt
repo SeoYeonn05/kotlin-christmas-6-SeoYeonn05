@@ -1,16 +1,16 @@
 package christmas.model
 
 class MenuOrder(private val menuItem: MenuItem, private val orderedMenuCount: Int) {
-    init {
-        //예외처리
-    }
-
     fun validateOrderMenu(): Boolean {
         return menuItem != MenuItem.NO_MENU
     }
 
-    fun validateMenuRange(): Boolean {
+    fun validateMenuCountRange(): Boolean {
         return orderedMenuCount >= MIN_MENU_COUNT
+    }
+
+    fun sumMenuCount(totalMenuCount: Int): Int {
+        return totalMenuCount + orderedMenuCount
     }
 
     companion object {
