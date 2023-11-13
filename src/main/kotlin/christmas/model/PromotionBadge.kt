@@ -10,7 +10,7 @@ enum class Badge(
     NO_BADGE("없음", 0);
 
     companion object{
-        fun checkRangeOfBadge(totalBenefitAmount: Int): Badge {
+        fun getBadgeByBenefitAmount(totalBenefitAmount: Int): Badge {
             return when {
                 totalBenefitAmount >= SANTA.minimumBadgeAmount -> SANTA
                 totalBenefitAmount >= TREE.minimumBadgeAmount -> TREE
@@ -24,6 +24,6 @@ enum class Badge(
 
 class PromotionBadge(private val totalBenefitAmount: Int) {
     fun givePromotionBadge(): Badge {
-        return Badge.checkRangeOfBadge(totalBenefitAmount)
+        return Badge.getBadgeByBenefitAmount(totalBenefitAmount)
     }
 }
