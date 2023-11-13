@@ -8,8 +8,9 @@ class MenuManager(private val inputReservationMenu: String) {
 
     init {
         createOrderedMenu()
+        // 예외처리를 모델에서 할까? 컨트롤러에 불러와서 할까?
         //MenuInvalidator(orderedMenu)
-        //validateTotalMenuCount()
+        validateTotalMenuCount()
     }
 
     private fun createOrderedMenu() {
@@ -35,6 +36,15 @@ class MenuManager(private val inputReservationMenu: String) {
         if (totalMenuCount > MAX_TOTAL_MENU_COUNT) {
             IllegalMenuException.invalidMenuCount
         }
+    }
+
+    fun sumMenuAmount(): Int {
+        var totalMenuAmount: Int = 0
+
+        orderedMenu.forEach { menuOrder ->
+            totalMenuAmount += menuOrder.calculateMenuAmount()
+        }
+        return totalMenuAmount
     }
 
     companion object {
