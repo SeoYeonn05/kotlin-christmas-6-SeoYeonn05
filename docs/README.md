@@ -61,19 +61,21 @@
 ##파일 구조
   - Model
     - Menu
+      [O] 메뉴 저장, 메뉴 값 예외처리
+    - MenuItem
       [O] 메뉴의 이름, 가격, 타입 저장
     - MenuManager
-      [ ] 메뉴 리스트 저장
+      [O] 메뉴 리스트 저장, 메뉴 리스트 예외처리
     - TotalOrderPrice
       [ ] 총주문 금액
       [ ] 할인 후 예상 결제 금액 계산
     - PromotionDate
-      [O] 이벤트 날짜 저장
+      [O] 이벤트 날짜 형식 변환 및 저장
       [O] 입력 날짜에 따른 이벤트 여부 계산
     - PromotionEntry
       [ ] 개별 혜택을 저장
     - PromotionBadge
-      [ ] 이벤트 배지 부여 여부계산
+      [O] 이벤트 배지 부여 여부계산
     - PromotionGiveaway
       [ ] 증정 메뉴 계산
     - PromotionHistory

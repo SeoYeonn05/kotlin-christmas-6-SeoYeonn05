@@ -26,7 +26,7 @@ enum class DiscountPromotion(private val promotionRange: List<Int>) {
 }
 
 class PromotionDate(private val inputReservationDate: String) {
-    private lateinit var availablePromotions: MutableMap<DiscountPromotion, Boolean>
+    private lateinit var availablePromotions: MutableList<DiscountPromotion>
     private val reservationDate: Int
     private val dayOfWeek = DayOfWeekChecker()
 
@@ -35,7 +35,7 @@ class PromotionDate(private val inputReservationDate: String) {
         checkPromotionDate()
     }
 
-    fun getAvailablePromotions(): MutableMap<DiscountPromotion, Boolean> {
+    fun getAvailablePromotions(): MutableList<DiscountPromotion> {
         return availablePromotions
     }
 
@@ -44,14 +44,20 @@ class PromotionDate(private val inputReservationDate: String) {
     }
 
     private fun checkPromotionDate() {
-        availablePromotions[DiscountPromotion.CHRISTMAS_D_DAY_DISCOUNT_PROMOTION] =
-            isChristmasDDayPromotionDate(reservationDate)
-        availablePromotions[DiscountPromotion.WEEKDAY_DISCOUNT_PROMOTION] =
-            isWeekdayPromotionDate(reservationDate)
-        availablePromotions[DiscountPromotion.WEEKEND_DISCOUNT_PROMOTION] =
-            isWeekendPromotionDate(reservationDate)
-        availablePromotions[DiscountPromotion.SPECIAL_DISCOUNT_PROMOTION] =
-            isSpecialPromotionDate(reservationDate)
+        if (isChristmasDDayPromotionDate(reservationDate)){
+            availablePromotions.add(DiscountPromotion.CHRISTMAS_D_DAY_DISCOUNT_PROMOTION)
+        }
+        if (isWeekdayPromotionDate(reservationDate)) {
+            availablePromotions.add(DiscountPromotion.WEEKDAY_DISCOUNT_PROMOTION)
+        }
+
+        if (isWeekendPromotionDate(reservationDate)) {
+            availablePromotions.add(DiscountPromotion.WEEKEND_DISCOUNT_PROMOTION)
+        }
+
+        if (isSpecialPromotionDate(reservationDate)) {
+            availablePromotions.add(DiscountPromotion.SPECIAL_DISCOUNT_PROMOTION)
+        }
     }
 
     private fun isChristmasDDayPromotionDate(date: Int): Boolean {
