@@ -77,7 +77,7 @@
     - PromotionBadge
       [O] 이벤트 배지 부여 여부계산
     - PromotionGiveaway
-      [ ] 증정 메뉴 계산
+      [O] 증정 메뉴 계산
     - PromotionHistory
       [ ] 이벤트에 따른 혜택 내역 저장
       [ ] 혜택 내역에 따른 총혜택 금액 계산
