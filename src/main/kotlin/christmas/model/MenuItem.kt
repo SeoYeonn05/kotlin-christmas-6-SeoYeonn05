@@ -34,6 +34,15 @@ enum class MenuItem(
         fun isMenuAvailable(menuName: String): MenuItem {
             return values().find { it.menuName == menuName } ?: NO_MENU
         }
+
+        fun getMenuPrice(menu: MenuItem): Int{
+            return menu.menuPrice
+        }
+
+
+        fun getDiscountMenuPrice(menu: MenuItem): Int{
+            return menu.menuPrice
+        }
     }
 }
 
