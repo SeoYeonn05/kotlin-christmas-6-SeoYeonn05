@@ -30,18 +30,14 @@ enum class MenuItem(
     CHAMPAGNE(MenuConstants.CHAMPAGNE, 25000, MenuCategory.BEVERAGE),
     NO_MENU(ErrorConstants.ERROR_MESSAGE, 0, MenuCategory.ELSE);
 
+    fun getMenuPrice() = this.menuPrice
+    fun isMenuBeverage():Boolean{
+        return this.menuCategory == MenuCategory.BEVERAGE
+    }
+
     companion object {
         fun isMenuAvailable(menuName: String): MenuItem {
             return values().find { it.menuName == menuName } ?: NO_MENU
-        }
-
-        fun getMenuPrice(menu: MenuItem): Int{
-            return menu.menuPrice
-        }
-
-
-        fun getDiscountMenuPrice(menu: MenuItem): Int{
-            return menu.menuPrice
         }
     }
 }
