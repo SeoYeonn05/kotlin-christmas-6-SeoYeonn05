@@ -1,20 +1,11 @@
 package christmas.model
 
-import christmas.validation.exception.IllegalMenuException
 
-
-class TotalOrderPrice(
+class OrderProcessor(
     private val orderedMenus: MutableList<MenuOrder>,
     private val discountPromotion: MutableList<DiscountPromotion>
 ) {
     private var totalOrderPrice: Int = 0
-
-    init {
-        getTotalOrderPrice()
-        if (isEventAvailable()) {
-
-        }
-    }
 
     private fun isEventAvailable(): Boolean {
         return checkTotalOrderPriceDiscount() && checkBeverageOnlyOrder() && checkMaximumMenuCount()
@@ -40,23 +31,13 @@ class TotalOrderPrice(
     }
 
     fun getTotalOrderPrice() {
+
+    }
+
+    fun getDiscountAmount() {
         orderedMenus.forEach { menuOrder ->
             totalOrderPrice += menuOrder.calculateMenuAmount()
         }
-    }
-
-    fun getDiscountedTotalOrderPrice() {
-        orderedMenus.forEach { menuOrder ->
-            totalOrderPrice += menuOrder.calculateMenuAmount()
-        }
-    }
-
-    private fun applyChristmasDDayDiscount() {
-
-    }
-
-    private fun applySpecialPromotion() {
-
     }
 
     companion object {

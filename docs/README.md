@@ -60,20 +60,22 @@
 
 ##파일 구조
   - Model
-    - Menu
+    + Menu
       [O] 메뉴 저장, 메뉴 값 예외처리
-    - MenuItem
+    + MenuItem
       [O] 메뉴의 이름, 가격, 타입 저장
-    - MenuManager
+    + MenuManager
       [O] 메뉴 리스트 저장, 메뉴 리스트 예외처리
-    - TotalOrderPrice
+    + OrderProcessor
       [ ] 총주문 금액
       [ ] 할인 후 예상 결제 금액 계산
+    - PromotionApplicator
+      [O] 평일, 주말 할인 비용 계산
     + PromotionDate
       [O] 이벤트 날짜 형식 변환 및 저장
       [O] 입력 날짜에 따른 이벤트 여부 계산
     - DiscountCalculator
-      [ ] 입력 날짜에 따른 이벤트를 적용해 할인된 값 계산
+      [O] 입력 날짜에 따른 이벤트를 적용해 할인된 값 계산
     - PromotionBadge
       [O] 이벤트 배지 부여 여부계산
     - PromotionGiveaway
