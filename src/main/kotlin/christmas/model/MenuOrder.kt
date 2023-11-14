@@ -1,6 +1,8 @@
 package christmas.model
 
 class MenuOrder(private val menuItem: MenuItem, private val orderedMenuCount: Int) {
+    fun getMenuItem() = menuItem
+    fun getOrderedMenuCount() = orderedMenuCount
     fun validateOrderMenu(): Boolean {
         return menuItem != MenuItem.NO_MENU
     }
@@ -13,12 +15,16 @@ class MenuOrder(private val menuItem: MenuItem, private val orderedMenuCount: In
         return totalMenuCount + orderedMenuCount
     }
 
-    fun printMenuItem(){
-        print(menuItem)
+    fun calculateDiscountedAmount(promotion: DiscountPromotion): Int {
+        return promotion.applyDiscountToAmount(menuItem.getMenuPrice(), orderedMenuCount)
     }
 
-    fun printOrderedMenuCount(){
-        print(orderedMenuCount)
+    fun calculateMenuAmount(): Int {
+        return menuItem.getMenuPrice() * orderedMenuCount
+    }
+
+    fun validateIsBeverage():Boolean{
+        return menuItem.isMenuBeverage()
     }
 
     companion object {
