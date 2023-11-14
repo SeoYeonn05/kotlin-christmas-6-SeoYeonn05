@@ -20,11 +20,9 @@ enum class DiscountPromotion(private val promotionRange: List<Int>, private val 
     SPECIAL_DISCOUNT_PROMOTION(listOf(DayOfWeekType.SUNDAY.dayOfWeekNum, 25),1000),
     NO_PROMOTION(listOf(0), 0);
 
+    fun getDiscountAmount() = this.discountAmount
     fun checkPromotionRange(date: Int): Boolean {
         return date in promotionRange
-    }
-    fun applyDiscountToAmount(amount: Int, orderedCount: Int): Int{
-        return (amount - this.discountAmount) * orderedCount
     }
 }
 
