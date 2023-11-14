@@ -13,7 +13,7 @@ enum class DayOfWeekType(val dayOfWeekNum: Int) {
     SATURDAY(dayOfWeekNum = 7),
 }
 
-enum class DiscountPromotion(private val promotionRange: List<Int>, discountAmount: Int) {
+enum class DiscountPromotion(private val promotionRange: List<Int>, private val discountAmount: Int) {
     CHRISTMAS_D_DAY_DISCOUNT_PROMOTION((1..25).toList(), 100),
     WEEKDAY_DISCOUNT_PROMOTION((DayOfWeekType.SUNDAY.dayOfWeekNum..DayOfWeekType.THURSDAY.dayOfWeekNum).toList(), 2023),
     WEEKEND_DISCOUNT_PROMOTION((DayOfWeekType.FRIDAY.dayOfWeekNum..DayOfWeekType.SATURDAY.dayOfWeekNum).toList(), 2023),
@@ -22,6 +22,9 @@ enum class DiscountPromotion(private val promotionRange: List<Int>, discountAmou
 
     fun checkPromotionRange(date: Int): Boolean {
         return date in promotionRange
+    }
+    fun applyDiscountToAmount(amount: Int, orderedCount: Int): Int{
+        return (amount - this.discountAmount) * orderedCount
     }
 }
 
