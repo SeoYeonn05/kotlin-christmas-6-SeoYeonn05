@@ -69,11 +69,11 @@
     - TotalOrderPrice
       [ ] 총주문 금액
       [ ] 할인 후 예상 결제 금액 계산
-    - PromotionDate
+    + PromotionDate
       [O] 이벤트 날짜 형식 변환 및 저장
       [O] 입력 날짜에 따른 이벤트 여부 계산
-    - PromotionEntry
-      [ ] 개별 혜택을 저장
+    - DiscountCalculator
+      [ ] 입력 날짜에 따른 이벤트를 적용해 할인된 값 계산
     - PromotionBadge
       [O] 이벤트 배지 부여 여부계산
     - PromotionGiveaway
