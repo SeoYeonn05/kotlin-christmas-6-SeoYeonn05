@@ -15,16 +15,12 @@ class MenuOrder(private val menuItem: MenuItem, private val orderedMenuCount: In
         return totalMenuCount + orderedMenuCount
     }
 
-    fun calculateDiscountedAmount(promotion: DiscountPromotion): Int {
-        return promotion.applyDiscountToAmount(menuItem.getMenuPrice(), orderedMenuCount)
-    }
-
     fun calculateMenuAmount(): Int {
         return menuItem.getMenuPrice() * orderedMenuCount
     }
 
     fun validateIsBeverage():Boolean{
-        return menuItem.isMenuBeverage()
+        return menuItem.getMenuCategory() == MenuCategory.BEVERAGE
     }
 
     companion object {
