@@ -28,7 +28,6 @@ class DataFormatter {
             if (intMenuCount < 0) {
                 throw IllegalMenuException.invalidMenuCount
             }
-            print("parseToIntMenu: $intMenuCount")
             intMenuCount
         } catch (e: NumberFormatException) {
             throw IllegalMenuException.invalidMenuCount
