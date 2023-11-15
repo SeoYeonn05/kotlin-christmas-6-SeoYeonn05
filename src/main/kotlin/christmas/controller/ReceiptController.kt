@@ -55,8 +55,7 @@ class ReceiptController(
         promotionalPrice.forEach { (_, discountAmount) ->
             allBenefitAmount += discountAmount
         }
-        giveawayItem.applyGiveawayAMount(allBenefitAmount)
-        return allBenefitAmount
+        return allBenefitAmount + giveawayItem.giveawayAmount()
     }
 
     private fun calculatePromotionBadge(allDiscountAmount: Int): Badge {

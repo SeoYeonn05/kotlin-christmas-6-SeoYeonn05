@@ -8,13 +8,9 @@ class MenuManager(private val inputReservationMenu: String) {
     private var orderedMenus: MutableList<MenuOrder> = mutableListOf()
 
     init {
-        try {
-            createOrderedMenu()
-            MenuInvalidator().validateMenuItem(orderedMenus)
-            checkOrderMenuConditions()
-        } catch (e: Exception) {
-            throw IllegalMenuException.invalidMenuFormat
-        }
+        createOrderedMenu()
+        MenuInvalidator().validateMenuItem(orderedMenus)
+        checkOrderMenuConditions()
     }
 
     fun getOrderedMenu() = orderedMenus
@@ -53,7 +49,7 @@ class MenuManager(private val inputReservationMenu: String) {
     private fun convertReservationMenu(menuStr: String): MenuOrder {
         val splitMenuString = menuStr.split("-")
         val menuName = MenuItem.isMenuAvailable(splitMenuString[0])
-        var menuCount:Int = 0
+        var menuCount: Int = 0
         try {
             menuCount = DataFormatter().parseToIntMenuCount(splitMenuString[1])
         } catch (e: IllegalMenuException) {

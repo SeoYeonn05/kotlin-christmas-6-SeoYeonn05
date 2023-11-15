@@ -60,12 +60,16 @@ class OutputView {
             }
         }
         if (giveaway != GiveawayItem.NO_GIVEAWAY) {
-            println("${Constants.GIVEAWAY_PROMOTION} -${giveaway.getGiveaway()}${Constants.WON}")
+            val formatAmount = format.formatNumberToDecimal(giveaway.giveawayAmount())
+
+            println("${Constants.GIVEAWAY_PROMOTION} -${formatAmount}${Constants.WON}")
         }
     }
 
     private fun printDiscountDetail(promotionType: String, discountAmount: Int) {
-        println("$promotionType -$discountAmount${Constants.WON}")
+        val formatAmount = format.formatNumberToDecimal(discountAmount)
+
+        println("$promotionType -$formatAmount${Constants.WON}")
     }
 
     fun printTotalBenefitAmountAmount(totalBenefitAmount: Int) {

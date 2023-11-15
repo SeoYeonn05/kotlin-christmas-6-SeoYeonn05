@@ -14,12 +14,13 @@ class OrderDataController(
     }
 
     fun getOrderMenu(): MutableList<MenuOrder> {
-        val inputOrder: String = getReservationOrder()
-        return try {
-            createMenuOrder(inputOrder)
-        } catch (e: IllegalMenuException) {
-            println(e.message)
-            mutableListOf()
+        while (true) {
+            val inputOrder: String = getReservationOrder()
+            try {
+                return createMenuOrder(inputOrder)
+            } catch (e: IllegalMenuException) {
+                println(e.message)
+            }
         }
     }
 
@@ -32,6 +33,11 @@ class OrderDataController(
     }
 
     private fun createMenuOrder(inputOrder: String): MutableList<MenuOrder> {
-        return MenuManager(inputOrder).getOrderedMenu()
+        return try {
+            return MenuManager(inputOrder).getOrderedMenu()
+        } catch (e: IllegalMenuException) {
+            print(e.message)
+            mutableListOf()
+        }
     }
 }

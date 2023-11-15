@@ -9,6 +9,7 @@ enum class GiveawayItem(
     NO_GIVEAWAY("없음",0, 0);
 
     fun getGiveaway() = this.giveaway
+    fun giveawayAmount() = this.giveawayAmount
     fun applyGiveawayAMount(amount: Int):Int{
         return amount - this.giveawayAmount
     }
