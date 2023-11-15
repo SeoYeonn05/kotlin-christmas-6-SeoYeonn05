@@ -7,7 +7,7 @@ class Printer {
         println(Constants.START_MESSAGE)
     }
     fun printRequestReservationDateMessage(){
-        print(Constants.REQUEST_RESERVATION_DATE)
+        println(Constants.REQUEST_RESERVATION_DATE)
     }
     fun printRequestReservationMenuMessage(){
         println(Constants.REQUEST_RESERVATION_MENU)
