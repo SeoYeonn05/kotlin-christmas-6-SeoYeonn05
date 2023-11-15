@@ -46,14 +46,14 @@ class PromotionApplicatorTest {
     fun `주말 할인 적용 시 할인 금액이 올바르게 계산되는지 확인`() {
         val promotionApplicator = PromotionApplicator(
             reservationDate = 24,
-            availablePromotions = mutableListOf(DiscountPromotion.CHRISTMAS_D_DAY_DISCOUNT_PROMOTION),
+            availablePromotions = mutableListOf(DiscountPromotion.WEEKDAY_DISCOUNT_PROMOTION),
             orderedMenus = orderedMenu
         )
 
         val expectedDiscountAmount = 4046
         val christmasPromotionMap = promotionApplicator.applyPromotion()
         val actualDiscountAmount =
-            christmasPromotionMap[DiscountPromotion.WEEKEND_DISCOUNT_PROMOTION]
+            christmasPromotionMap[DiscountPromotion.WEEKDAY_DISCOUNT_PROMOTION]
 
         assertEquals(expectedDiscountAmount, actualDiscountAmount)
     }
