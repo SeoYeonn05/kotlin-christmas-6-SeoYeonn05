@@ -1,5 +1,12 @@
 package christmas
 
+import christmas.controller.PromotionController
+import christmas.view.InputView
+import christmas.view.OutputView
+
 fun main() {
-    TODO("프로그램 구현")
+    val inputView = InputView()
+    val outputView = OutputView()
+
+    PromotionController(inputView, outputView).run()
 }
