@@ -60,50 +60,52 @@
 
 ##파일 구조
   - Model
-    + Menu
+    + MenuOrder
       [O] 메뉴 저장, 메뉴 값 예외처리
     + MenuItem
       [O] 메뉴의 이름, 가격, 타입 저장
     + MenuManager
       [O] 메뉴 리스트 저장, 메뉴 리스트 예외처리
     + OrderProcessor
-      [ ] 총주문 금액
-      [ ] 할인 후 예상 결제 금액 계산
-    - PromotionApplicator
+      [O] 총주문 금액
+      [O] 할인 후 예상 결제 금액 계산
+    + PromotionApplicator
       [O] 평일, 주말 할인 비용 계산
+      [O] 이벤트에 따른 혜택 내역 적용
     + PromotionDate
       [O] 이벤트 날짜 형식 변환 및 저장
       [O] 입력 날짜에 따른 이벤트 여부 계산
-    - DiscountCalculator
+    + DiscountCalculator
       [O] 입력 날짜에 따른 이벤트를 적용해 할인된 값 계산
-    - PromotionBadge
-      [O] 이벤트 배지 부여 여부계산
-    - PromotionGiveaway
+    + PromotionBadge
+      [O] 이벤트 배지 부여 여부 계산
+    + PromotionGiveaway
       [O] 증정 메뉴 계산
-    - PromotionHistory
-      [ ] 이벤트에 따른 혜택 내역 저장
-      [ ] 혜택 내역에 따른 총혜택 금액 계산
-      [ ] 이벤트 배지 여부
-    - Receipt
-      [ ] 메뉴, 할인 내역, 결제 금액 저장
+    + Receipt
+      [P] 메뉴, 할인 내역, 결제 금액 저장
+    + [O] 혜택 내역에 따른 총혜택 금액 계산
   - View
-    - InputView
-    - OutputView
+    + InputProcessor 
+    + InputView
+    + OutputView
+    + Printer
   - Controller
-    - PromotionPlannerController
-      [ ] 사용자 입력을 주문 서비스에 전달
-      [ ] 주문 서비스 결과를 뷰에 전달
-  - Exception
-    - IllegalArgumentException
-    - IllegalStateException
-    - IllegalDateException
-    - IllegalMenuException
-    - IllegalNullException
+    + PromotionController
+      [O] 사용자 입력을 주문 서비스에 전달
+      [O] 주문 서비스 결과를 뷰에 전달
+    + OrderDataController
+      [O] 사용자 예약 날짜, 메뉴 입력 및 객체 생성
+    + ReceiptController
+      [O] 사용자 주문 계산 후 영수증 생성
+  - validation
+    + InputValidator
+    + MenuInvalidator
   - Util
-    - Constants
-    - InputHandler
-      [ ] 입력값에 대한 에러처리 및 다시 입력 기능
-    - Printer
+    + constants
+    + InputHandler
+    + DataFormatter
+    + DayOfWeekChecker
+  
   
 ## 테스트 문서
 
