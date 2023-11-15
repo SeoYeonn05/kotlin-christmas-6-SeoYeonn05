@@ -31,6 +31,7 @@ object Constants {
     }
     fun setPromotionDate(date: Int){
         promotionDate = date
+        PROMOTION_BENEFITS_PREVIEW = "${PROMOTION_MONTH}월 ${promotionDate}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!"
     }
 }
 
