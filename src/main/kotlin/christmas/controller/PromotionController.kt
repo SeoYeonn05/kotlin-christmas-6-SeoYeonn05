@@ -9,43 +9,40 @@ class PromotionController(
     private val inputView: InputView,
     private val outputView: OutputView
 ) {
-    private lateinit var orderedMenus: MutableList<MenuOrder>
-    private lateinit var availablePromotions: MutableList<DiscountPromotion>
     private lateinit var orderProcessor: OrderProcessor
-    private var reservationDate: Int = 0
     private var totalAmount: Int = 0
+    private var inputDate: String = ""
 
     fun run() {
-        getOrderData()
-        val receipt = createReceipt()
+        inputView.printStartMessage()
+        var orderedMenus: MutableList<MenuOrder> = mutableListOf()
+        while (orderedMenus.isEmpty()) {
+            orderedMenus = getOrderData()
+        }
+        val receipt = createReceipt(orderedMenus)
         printTotalReceipt(receipt)
     }
 
-    private fun getOrderData(){
-        inputView.printStartMessage()
-        val inputDate = getReservationDate()
+    private fun getOrderData(): MutableList<MenuOrder> {
+        inputDate = getReservationDate()
         val inputOrder = getReservationOrder()
-        createMenuOrder(inputOrder)
-        checkAvailablePromotion(inputDate)
+        return createMenuOrder(inputOrder)
     }
 
     private fun getReservationDate(): String {
         return inputView.requestReservationDate()
     }
+
     private fun getReservationOrder(): String {
         return inputView.requestReservationMenu()
     }
-    private fun createMenuOrder(inputOrder: String) {
-        orderedMenus = MenuManager(inputOrder).getOrderedMenu()
-    }
-    private fun checkAvailablePromotion(inputDate: String) {
-        val promotionDate: PromotionDate = PromotionDate(inputDate)
-        availablePromotions = promotionDate.getAvailablePromotions()
-        reservationDate = promotionDate.getReservationDate()
+
+    private fun createMenuOrder(inputOrder: String): MutableList<MenuOrder> {
+        return MenuManager(inputOrder).getOrderedMenu()
     }
 
-    private fun createReceipt(): Receipt{
-        val totalAmount = calculateTotalAmount()
+    private fun createReceipt(orderedMenus: MutableList<MenuOrder>): Receipt {
+        val totalAmount = calculateTotalAmount(orderedMenus)
         val giveaway = checkGiveaway()
         val promotionHistory = getPromotionHistory()
         val allDiscountAmount = calculateAllDiscountAmount(promotionHistory)
@@ -61,24 +58,32 @@ class PromotionController(
             promotionBadge = promotionBadge
         )
     }
-    private fun calculateTotalAmount():Int {
-        orderProcessor = OrderProcessor(reservationDate, orderedMenus, availablePromotions)
+
+    private fun calculateTotalAmount(orderedMenus: MutableList<MenuOrder>): Int {
+        orderProcessor = OrderProcessor(inputDate, orderedMenus)
         return orderProcessor.getTotalOrderPrice()
     }
-    private fun checkGiveaway():GiveawayItem {
+
+    private fun checkGiveaway(): GiveawayItem {
         return PromotionGiveaway(totalAmount).getGiveawayByAmount()
     }
-    private fun getPromotionHistory():MutableMap<DiscountPromotion, Int>{
-        return orderProcessor.getDiscountAmount()
+
+    private fun getPromotionHistory(): MutableMap<DiscountPromotion, Int> {
+        return orderProcessor.getPromotionHistory()
     }
-    private fun calculateAllDiscountAmount(promotionalPrice: MutableMap<DiscountPromotion, Int>):Int{
+
+    private fun calculateAllDiscountAmount(promotionalPrice: MutableMap<DiscountPromotion, Int>): Int {
         var allDiscountAmount = 0
         promotionalPrice.forEach { (_, discountAmount) ->
             allDiscountAmount += discountAmount
         }
         return allDiscountAmount
     }
-    private fun calculateAllBenefitAmount(giveawayItem: GiveawayItem, promotionalPrice: MutableMap<DiscountPromotion, Int>):Int{
+
+    private fun calculateAllBenefitAmount(
+        giveawayItem: GiveawayItem,
+        promotionalPrice: MutableMap<DiscountPromotion, Int>
+    ): Int {
         var allBenefitAmount = 0
         promotionalPrice.forEach { (_, discountAmount) ->
             allBenefitAmount += discountAmount
@@ -86,14 +91,15 @@ class PromotionController(
         giveawayItem.applyGiveawayAMount(allBenefitAmount)
         return allBenefitAmount
     }
-    private fun calculatePromotionBadge(allDiscountAmount: Int):Badge{
+
+    private fun calculatePromotionBadge(allDiscountAmount: Int): Badge {
         return PromotionBadge(allDiscountAmount).givePromotionBadge()
     }
 
 
-    private fun printTotalReceipt(receipt: Receipt){
+    private fun printTotalReceipt(receipt: Receipt) {
         printPreviewMessage()
-        printOrderMenu()
+        printOrderMenu(receipt.orderedMenus())
         printTotalAmountBeforeDiscount()
         printGiveaway()
         printPromotionHistory(receipt)
@@ -106,7 +112,7 @@ class PromotionController(
         outputView.printPreviewPromotionMessage()
     }
 
-    private fun printOrderMenu() {
+    private fun printOrderMenu(orderedMenus: MutableList<MenuOrder>) {
         outputView.printOrderedMenu(orderedMenus)
     }
 
@@ -121,13 +127,16 @@ class PromotionController(
     private fun printPromotionHistory(receipt: Receipt) {
         outputView.printDiscountMessage(receipt.giveawayItem(), receipt.promotionHistory())
     }
-    private fun printTotalBenefitAmount(allBenefitAmount: Int){
+
+    private fun printTotalBenefitAmount(allBenefitAmount: Int) {
         outputView.printTotalBenefitAmountAmount(allBenefitAmount)
     }
-    private fun printTotalAmountAfterDiscount(totalAmountAfterPromotion: Int){
+
+    private fun printTotalAmountAfterDiscount(totalAmountAfterPromotion: Int) {
         outputView.printTotalBenefitAmountAmount(totalAmountAfterPromotion)
     }
-    private fun printPromotionBadge(badge: Badge){
+
+    private fun printPromotionBadge(badge: Badge) {
         outputView.printDecemberEventBadge(badge.badgeName)
     }
 }
