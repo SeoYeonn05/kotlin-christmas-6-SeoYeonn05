@@ -7,6 +7,10 @@ class DiscountCalculator {
         availablePromotion: DiscountPromotion,
         orderedMenu: MenuOrder
     ): Int {
-        return availablePromotion.getDiscountAmount() * orderedMenu.getOrderedMenuCount()
+        if (availablePromotion == DiscountPromotion.WEEKDAY_DISCOUNT_PROMOTION || availablePromotion == DiscountPromotion.WEEKEND_DISCOUNT_PROMOTION) {
+            return availablePromotion.getDiscountAmount() * orderedMenu.getOrderedMenuCount()
+        } else {
+            throw IllegalPromotionException.invalidPromotion
+        }
     }
 }
