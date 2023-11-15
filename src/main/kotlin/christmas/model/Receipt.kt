@@ -14,6 +14,9 @@ class Receipt(
     init {
         calculateTotalAmountAfterPromotion()
     }
+
+    fun totalAmount() = totalAmount
+    fun orderedMenus() = orderedMenus
     fun promotionHistory() = promotionHistory
     fun giveawayItem() = giveawayItem
     fun totalBenefitAmount() = totalBenefitAmount
