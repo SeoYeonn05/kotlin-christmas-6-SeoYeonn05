@@ -3,6 +3,7 @@ package christmas.model
 import christmas.util.DataFormatter
 import christmas.util.DayOfWeekChecker
 import christmas.util.constant.Constants
+import christmas.validation.exception.IllegalDateException
 
 enum class DayOfWeekType(val dayOfWeekNum: Int) {
     MONDAY(dayOfWeekNum = 1),
@@ -59,7 +60,12 @@ class PromotionDate(private val inputReservationDate: String) {
 
 
     private fun convertReservationDate(): Int {
-        return DataFormatter().parseToIntDate(inputReservationDate)
+        try {
+            return DataFormatter().parseToIntDate(inputReservationDate)
+        } catch (e: IllegalDateException) {
+            println(e.message)
+            throw e
+        }
     }
 
     private fun checkPromotionDate() {
