@@ -1,5 +1,7 @@
 package christmas.model
 
+import christmas.util.constant.Constants
+
 
 class OrderProcessor(
     private val inputDate: String,
@@ -13,6 +15,7 @@ class OrderProcessor(
 
     init{
         calculateTotalOrderPrice()
+        Constants.setPromotionDate(promotionDate.getReservationDate())
     }
     fun getTotalOrderPrice() = totalOrderPrice
 

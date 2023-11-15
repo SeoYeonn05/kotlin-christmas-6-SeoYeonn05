@@ -29,5 +29,8 @@ object Constants {
         promotionDate = date
         return PROMOTION_BENEFITS_PREVIEW
     }
+    fun setPromotionDate(date: Int){
+        promotionDate = date
+    }
 }
 
