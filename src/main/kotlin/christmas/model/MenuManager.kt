@@ -1,16 +1,19 @@
 package christmas.model
 
 import christmas.util.DataFormatter
+import christmas.validation.MenuInvalidator
 import christmas.validation.exception.IllegalMenuException
+import kotlin.io.path.createTempDirectory
 
 class MenuManager(private val inputReservationMenu: String) {
-    private lateinit var orderedMenu: MutableList<MenuOrder>
+    private var orderedMenu: MutableList<MenuOrder> = mutableListOf()
 
     init {
         createOrderedMenu()
-        // 예외처리를 모델에서 할까? 컨트롤러에 불러와서 할까?
-        //MenuInvalidator(orderedMenu)
+        MenuInvalidator().validateMenuItem(orderedMenu)
     }
+
+    fun getOrderedMenu() = orderedMenu
 
     private fun createOrderedMenu() {
         val reservationMenu = inputReservationMenu.split(",")
@@ -25,14 +28,5 @@ class MenuManager(private val inputReservationMenu: String) {
         val menuCount = DataFormatter().parseToInt(splitMenuString[1])
 
         return MenuOrder(menuName, menuCount)
-    }
-
-    fun sumMenuAmount(): Int {
-        var totalMenuAmount: Int = 0
-
-        orderedMenu.forEach { menuOrder ->
-            totalMenuAmount += menuOrder.calculateMenuAmount()
-        }
-        return totalMenuAmount
     }
 }

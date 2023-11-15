@@ -17,9 +17,9 @@ class MenuInvalidator {
     }
 
     private fun checkMenuExistence(reservationMenu: List<MenuOrder>) {
-        require(return reservationMenu.forEach {
-            it.validateOrderMenu()
-        }) { throw IllegalMenuException.invalidMenuItem }
+        if (reservationMenu.any { !it.validateOrderMenu() }) {
+            throw IllegalMenuException.invalidMenuItem
+        }
     }
 
     private fun checkMenuCountRange(reservationMenu: List<MenuOrder>) {
