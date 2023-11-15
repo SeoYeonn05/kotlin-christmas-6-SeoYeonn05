@@ -1,7 +1,7 @@
 package christmas.model
 
 enum class Badge(
-    private val badge: String,
+    val badgeName: String,
     private val minimumBadgeAmount: Int
 ) {
     STAR("별", 5000),
