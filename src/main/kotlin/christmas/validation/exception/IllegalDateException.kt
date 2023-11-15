@@ -10,7 +10,7 @@ class IllegalDateException(
         get() = "${ErrorConstants.ERROR_MESSAGE} $errorMessage"
 
     companion object {
-        val invalidNumericValue = IllegalArgumentException(ErrorConstants.INVALID_DATE_ERROR)
-        val invalidRangeDate = IllegalArgumentException(ErrorConstants.INVALID_DATE_ERROR)
+        val invalidNumericValue = IllegalDateException(ErrorConstants.INVALID_DATE_ERROR)
+        val invalidRangeDate = IllegalDateException(ErrorConstants.INVALID_DATE_ERROR)
     }
 }
