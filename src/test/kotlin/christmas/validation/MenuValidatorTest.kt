@@ -42,7 +42,7 @@ class MenuInvalidatorTest {
             assertThrows<IllegalMenuException> {
                 MenuInvalidator().validateMenuItem(menuOrders)
             }
-        val expectedErrorMessage = "${ErrorConstants.ERROR_MESSAGE} ${ErrorConstants.INVALID_MENU_ERROR}"
+        val expectedErrorMessage = "${ErrorConstants.ERROR_MESSAGE} ${ErrorConstants.INVALID_MENU_FORMAT_ERROR}"
         Assertions.assertEquals(expectedErrorMessage, exception.message)
     }
 
@@ -59,7 +59,7 @@ class MenuInvalidatorTest {
                 MenuInvalidator().validateMenuItem(menuOrders)
             }
 
-        val expectedErrorMessage = "${ErrorConstants.ERROR_MESSAGE} ${ErrorConstants.INVALID_MENU_ERROR}"
+        val expectedErrorMessage = "${ErrorConstants.ERROR_MESSAGE} ${ErrorConstants.INVALID_MENU_FORMAT_ERROR}"
         Assertions.assertEquals(expectedErrorMessage, exception.message)
     }
 
@@ -75,7 +75,7 @@ class MenuInvalidatorTest {
                 MenuInvalidator().validateMenuItem(menuOrders)
             }
 
-        val expectedErrorMessage = "${ErrorConstants.ERROR_MESSAGE} ${ErrorConstants.INVALID_MENU_ERROR}"
+        val expectedErrorMessage = "${ErrorConstants.ERROR_MESSAGE} ${ErrorConstants.INVALID_MENU_FORMAT_ERROR}"
         Assertions.assertEquals(expectedErrorMessage, exception.message)
     }
 }
