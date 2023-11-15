@@ -16,7 +16,7 @@ class InputProcessor {
                 InputValidator().validateInputReservationDate(userInput)
                 return userInput
             } catch (e: IllegalDateException) {
-                println("${ErrorConstants.ERROR_MESSAGE} ${e.message}")
+                println(e.message)
             }
         }
     }
@@ -29,7 +29,7 @@ class InputProcessor {
                 inputValidator.validateInputReservationMenu(userInput)
                 return userInput
             } catch (e: IllegalMenuException) {
-                println("${ErrorConstants.ERROR_MESSAGE} ${e.message}")
+                println(e.message)
             }
         }
     }
