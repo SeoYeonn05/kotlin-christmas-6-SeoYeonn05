@@ -2,22 +2,40 @@ package christmas.model
 
 import christmas.util.DataFormatter
 import christmas.util.DayOfWeekChecker
+import christmas.util.constant.Constants
 
 enum class DayOfWeekType(val dayOfWeekNum: Int) {
-    SUNDAY(dayOfWeekNum = 1),
-    MONDAY(dayOfWeekNum = 2),
-    TUESDAY(dayOfWeekNum = 3),
-    WEDNESDAY(dayOfWeekNum = 4),
-    THURSDAY(dayOfWeekNum = 5),
-    FRIDAY(dayOfWeekNum = 6),
-    SATURDAY(dayOfWeekNum = 7),
+    MONDAY(dayOfWeekNum = 1),
+    TUESDAY(dayOfWeekNum = 2),
+    WEDNESDAY(dayOfWeekNum = 3),
+    THURSDAY(dayOfWeekNum = 4),
+    FRIDAY(dayOfWeekNum = 5),
+    SATURDAY(dayOfWeekNum = 6),
+    SUNDAY(dayOfWeekNum = 7);
+
+    companion object {
+        fun getWeekdaysExceptFridayAndSaturday(): List<Int> {
+            return values()
+                .filter { it != FRIDAY && it != SATURDAY }
+                .map { it.dayOfWeekNum }
+        }
+    }
 }
 
-enum class DiscountPromotion(private val promotionRange: List<Int>, private val discountAmount: Int) {
+enum class DiscountPromotion(
+    private val promotionRange: List<Int>,
+    private val discountAmount: Int
+) {
     CHRISTMAS_D_DAY_DISCOUNT_PROMOTION((1..25).toList(), 100),
-    WEEKDAY_DISCOUNT_PROMOTION((DayOfWeekType.SUNDAY.dayOfWeekNum..DayOfWeekType.THURSDAY.dayOfWeekNum).toList(), 2023),
-    WEEKEND_DISCOUNT_PROMOTION((DayOfWeekType.FRIDAY.dayOfWeekNum..DayOfWeekType.SATURDAY.dayOfWeekNum).toList(), 2023),
-    SPECIAL_DISCOUNT_PROMOTION(listOf(DayOfWeekType.SUNDAY.dayOfWeekNum, 25),1000),
+    WEEKDAY_DISCOUNT_PROMOTION(
+        DayOfWeekType.getWeekdaysExceptFridayAndSaturday(),
+        2023
+    ),
+    WEEKEND_DISCOUNT_PROMOTION(
+        (DayOfWeekType.FRIDAY.dayOfWeekNum..DayOfWeekType.SATURDAY.dayOfWeekNum).toList(),
+        2023
+    ),
+    SPECIAL_DISCOUNT_PROMOTION(listOf(DayOfWeekType.SUNDAY.dayOfWeekNum), 1000),
     NO_PROMOTION(listOf(0), 0);
 
     fun getDiscountAmount() = this.discountAmount
@@ -27,7 +45,7 @@ enum class DiscountPromotion(private val promotionRange: List<Int>, private val 
 }
 
 class PromotionDate(private val inputReservationDate: String) {
-    private lateinit var availablePromotions: MutableList<DiscountPromotion>
+    private var availablePromotions: MutableList<DiscountPromotion> = mutableListOf()
     private val reservationDate: Int
     private val dayOfWeek = DayOfWeekChecker()
 
@@ -36,16 +54,16 @@ class PromotionDate(private val inputReservationDate: String) {
         checkPromotionDate()
     }
 
-    fun getAvailablePromotions(): MutableList<DiscountPromotion> {
-        return availablePromotions
-    }
+    fun getReservationDate() = reservationDate
+    fun getAvailablePromotions() = availablePromotions
+
 
     private fun convertReservationDate(): Int {
-        return DataFormatter().parseToInt(inputReservationDate)
+        return DataFormatter().parseToIntDate(inputReservationDate)
     }
 
     private fun checkPromotionDate() {
-        if (isChristmasDDayPromotionDate(reservationDate)){
+        if (isChristmasDDayPromotionDate(reservationDate)) {
             availablePromotions.add(DiscountPromotion.CHRISTMAS_D_DAY_DISCOUNT_PROMOTION)
         }
         if (isWeekdayPromotionDate(reservationDate)) {
@@ -62,8 +80,7 @@ class PromotionDate(private val inputReservationDate: String) {
     }
 
     private fun isChristmasDDayPromotionDate(date: Int): Boolean {
-        var dayOfWeek = dayOfWeek.doDayOfWeek(day = date)
-        return DiscountPromotion.CHRISTMAS_D_DAY_DISCOUNT_PROMOTION.checkPromotionRange(dayOfWeek)
+        return DiscountPromotion.CHRISTMAS_D_DAY_DISCOUNT_PROMOTION.checkPromotionRange(date)
     }
 
     private fun isWeekdayPromotionDate(date: Int): Boolean {
@@ -78,6 +95,6 @@ class PromotionDate(private val inputReservationDate: String) {
 
     private fun isSpecialPromotionDate(date: Int): Boolean {
         var dayOfWeek = dayOfWeek.doDayOfWeek(day = date)
-        return DiscountPromotion.SPECIAL_DISCOUNT_PROMOTION.checkPromotionRange(dayOfWeek)
+        return DiscountPromotion.SPECIAL_DISCOUNT_PROMOTION.checkPromotionRange(dayOfWeek) || date == Constants.CHRISTMAS_D_DAY
     }
 }
