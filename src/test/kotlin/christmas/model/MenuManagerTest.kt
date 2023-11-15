@@ -27,7 +27,7 @@ class MenuManagerTest {
             assertThrows<IllegalMenuException> {
                 MenuManager("티본스테이크-1,바비큐립-1,똥-3")}
 
-        val expectedErrorMessage = "${ErrorConstants.ERROR_MESSAGE} ${ErrorConstants.INVALID_MENU_ERROR}"
+        val expectedErrorMessage = "${ErrorConstants.ERROR_MESSAGE} ${ErrorConstants.INVALID_MENU_FORMAT_ERROR}"
         Assertions.assertEquals(expectedErrorMessage, exception.message)
     }
 }

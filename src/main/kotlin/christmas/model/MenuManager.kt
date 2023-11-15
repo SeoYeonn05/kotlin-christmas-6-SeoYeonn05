@@ -6,19 +6,43 @@ import christmas.validation.exception.IllegalMenuException
 import kotlin.io.path.createTempDirectory
 
 class MenuManager(private val inputReservationMenu: String) {
-    private var orderedMenu: MutableList<MenuOrder> = mutableListOf()
+    private var orderedMenus: MutableList<MenuOrder> = mutableListOf()
 
     init {
-        createOrderedMenu()
-        MenuInvalidator().validateMenuItem(orderedMenu)
+        try{
+            createOrderedMenu()
+            MenuInvalidator().validateMenuItem(orderedMenus)
+            checkOrderMenuConditions()
+        }
+        catch(e: Exception){
+            throw e
+        }
     }
 
-    fun getOrderedMenu() = orderedMenu
+    fun getOrderedMenu() = orderedMenus
+
+    private fun checkOrderMenuConditions(): Boolean{
+        return checkBeverageOnlyOrder() && checkMaximumMenuCount()
+    }
+    private fun checkBeverageOnlyOrder(): Boolean {
+        var beverageMenus = orderedMenus.filter { menuOrder ->
+            menuOrder.validateIsBeverage()
+        }
+        return beverageMenus.size != orderedMenus.size
+    }
+
+    private fun checkMaximumMenuCount(): Boolean {
+        var totalMenuCount = 0
+        orderedMenus.forEach { menuOrder ->
+            totalMenuCount = menuOrder.sumMenuCount(totalMenuCount)
+        }
+        return totalMenuCount <= MAX_TOTAL_MENU_COUNT
+    }
 
     private fun createOrderedMenu() {
         val reservationMenu = inputReservationMenu.split(",")
         reservationMenu.forEach { menuStr: String ->
-            orderedMenu.add(convertReservationMenu(menuStr))
+            orderedMenus.add(convertReservationMenu(menuStr))
         }
     }
 
@@ -28,5 +52,8 @@ class MenuManager(private val inputReservationMenu: String) {
         val menuCount = DataFormatter().parseToIntMenuCount(splitMenuString[1])
 
         return MenuOrder(menuName, menuCount)
+    }
+    companion object{
+        private const val MAX_TOTAL_MENU_COUNT = 20
     }
 }
