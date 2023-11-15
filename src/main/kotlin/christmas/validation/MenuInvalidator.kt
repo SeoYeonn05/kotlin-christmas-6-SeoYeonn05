@@ -5,9 +5,13 @@ import christmas.validation.exception.IllegalMenuException
 
 class MenuInvalidator {
     fun validateMenuItem(reservationMenu: List<MenuOrder>) {
-        checkMenuExistence(reservationMenu)
-        checkMenuDuplicates(reservationMenu)
-        checkMenuCountRange(reservationMenu)
+        try {
+            checkMenuExistence(reservationMenu)
+            checkMenuDuplicates(reservationMenu)
+            checkMenuCountRange(reservationMenu)
+        } catch (e: Exception) {
+            print(e.message)
+        }
     }
 
     private fun checkMenuDuplicates(reservationMenu: List<MenuOrder>) {
