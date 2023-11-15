@@ -7,23 +7,34 @@ import java.text.DecimalFormat
 
 class DataFormatter {
     fun parseToIntDate(input: String): Int {
-        val intData = input.toIntOrNull() ?: throw IllegalDateException.invalidRangeDate
-        if (intData < 0) {
+        return try {
+            val intData = input.toInt()
+            if (intData < 0) {
+                throw IllegalDateException.invalidRangeDate
+            }
+            intData
+        } catch (e: NumberFormatException) {
             throw IllegalDateException.invalidRangeDate
         }
-        return intData
     }
 
     fun formatNumberToDecimal(num: Int): String {
         val dec = DecimalFormat("#,###")
         return dec.format(num)
     }
-
     fun parseToIntMenuCount(input: String): Int {
-        val intMenuCount = input.toIntOrNull() ?: throw IllegalMenuException.invalidMenuCount
-        if (intMenuCount < 0) {
+        return try {
+            val intMenuCount = input.toInt()
+            if (intMenuCount < 0) {
+                throw IllegalMenuException.invalidMenuCount
+            }
+            print("parseToIntMenu: $intMenuCount")
+            intMenuCount
+        } catch (e: NumberFormatException) {
             throw IllegalMenuException.invalidMenuCount
         }
-        return intMenuCount
+    }
+    companion object{
+         val ERROR_NUM = -1
     }
 }

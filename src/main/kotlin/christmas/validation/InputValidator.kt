@@ -5,34 +5,33 @@ import christmas.validation.exception.IllegalDateException
 import christmas.validation.exception.IllegalMenuException
 
 class InputValidator {
-    fun validateInputReservationDate(inputReservationDate: String):Boolean{
+    fun validateInputReservationDate(inputReservationDate: String): Boolean {
         val reservationDate = convertReservationDate(inputReservationDate)
-        isReservationDatePositive(reservationDate)
 
-        return true
-    }
-
-    fun validateInputReservationMenu(inputReservationMenu: String):Boolean{
-        var reservationMenu = inputReservationMenu.split(",")
-        reservationMenu.forEach {
-            validateMenuOrder(it)
+        return try {
+            isReservationDatePositive(reservationDate)
+            true
+        } catch (e: IllegalMenuException) {
+            false
         }
-        return true
     }
 
-    private fun convertReservationDate(input: String): Int{
+    fun validateInputReservationMenu(inputReservationMenu: String) {
+        var reservationMenu = inputReservationMenu.split(",")
+        reservationMenu.forEach { validateMenuOrder(it) }
+    }
+    private fun validateMenuOrder(reservationMenu: String) {
+        val regex = Regex("^[가-힣A-Za-z]+-\\d+\$")
+        if (!reservationMenu.matches(regex)) {
+            throw IllegalMenuException.invalidMenuFormat
+        }
+    }
+
+    private fun convertReservationDate(input: String): Int {
         return DataFormatter().parseToIntDate(input)
     }
 
-    private fun validateMenuOrder(reservationMenu: String){
-        val regex = Regex("^[가-힣A-Za-z]+-\\d+\$")
-        if(!reservationMenu.matches(regex)){
-            IllegalMenuException.invalidMenuFormat
-        }
-    }
-
     private fun isReservationDatePositive(input: Int) {
-        require(input > 0) { IllegalDateException.invalidNumericValue }
+        require(input > 0) { throw IllegalDateException.invalidNumericValue }
     }
-
 }
