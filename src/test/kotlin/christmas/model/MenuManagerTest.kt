@@ -22,12 +22,32 @@ class MenuManagerTest {
     }
 
     @Test
-    fun `존재하지 않는 orderMenus 입력`() {
+    fun `존재하지 않는 orderMenus 입력 시 에러 처리`() {
         val exception =
             assertThrows<IllegalMenuException> {
-                MenuManager("티본스테이크-1,바비큐립-1,똥-3")}
+                MenuManager("티본스테이크-1,바비큐립-1,똥-3, 바베큐립-1")}
 
         val expectedErrorMessage = "${ErrorConstants.ERROR_MESSAGE} ${ErrorConstants.INVALID_MENU_FORMAT_ERROR}"
+        Assertions.assertEquals(expectedErrorMessage, exception.message)
+    }
+
+    @Test
+    fun `음료만 주문 시 에러 처리`() {
+        val exception =
+            assertThrows<IllegalMenuException> {
+                MenuManager("레드와인-1,샴페인-4")}
+
+        val expectedErrorMessage = "${ErrorConstants.ERROR_MESSAGE} ${ErrorConstants.INVALID_MENU_CONDITION_ERROR}"
+        Assertions.assertEquals(expectedErrorMessage, exception.message)
+    }
+
+    @Test
+    fun `20개 이상의 메뉴 주문 시 에러 처리`() {
+        val exception =
+            assertThrows<IllegalMenuException> {
+                MenuManager("해산물파스타-6,레드와인-15,샴페인-4")}
+
+        val expectedErrorMessage = "${ErrorConstants.ERROR_MESSAGE} ${ErrorConstants.INVALID_MENU_COUNT_ERROR}"
         Assertions.assertEquals(expectedErrorMessage, exception.message)
     }
 }

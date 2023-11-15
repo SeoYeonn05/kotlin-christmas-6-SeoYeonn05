@@ -21,22 +21,27 @@ class MenuManager(private val inputReservationMenu: String) {
 
     fun getOrderedMenu() = orderedMenus
 
-    private fun checkOrderMenuConditions(): Boolean{
-        return checkBeverageOnlyOrder() && checkMaximumMenuCount()
+    private fun checkOrderMenuConditions(){
+        checkBeverageOnlyOrder()
+        checkMaximumMenuCount()
     }
-    private fun checkBeverageOnlyOrder(): Boolean {
+    private fun checkBeverageOnlyOrder() {
         var beverageMenus = orderedMenus.filter { menuOrder ->
             menuOrder.validateIsBeverage()
         }
-        return beverageMenus.size != orderedMenus.size
+        if(beverageMenus.size == orderedMenus.size){
+            throw IllegalMenuException.onlyBeverageOrder
+        }
     }
 
-    private fun checkMaximumMenuCount(): Boolean {
+    private fun checkMaximumMenuCount() {
         var totalMenuCount = 0
         orderedMenus.forEach { menuOrder ->
             totalMenuCount = menuOrder.sumMenuCount(totalMenuCount)
         }
-        return totalMenuCount <= MAX_TOTAL_MENU_COUNT
+        if (totalMenuCount > MAX_TOTAL_MENU_COUNT){
+            throw IllegalMenuException.maximumOrderCount
+        }
     }
 
     private fun createOrderedMenu() {
