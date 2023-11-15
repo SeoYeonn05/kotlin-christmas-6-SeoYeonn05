@@ -3,12 +3,8 @@ package christmas.validation
 import christmas.model.MenuOrder
 import christmas.validation.exception.IllegalMenuException
 
-class MenuInvalidator(reservationMenu: List<MenuOrder>) {
-    init {
-        validateMenuItem(reservationMenu)
-    }
-
-    private fun validateMenuItem(reservationMenu: List<MenuOrder>) {
+class MenuInvalidator {
+    fun validateMenuItem(reservationMenu: List<MenuOrder>) {
         checkMenuExistence(reservationMenu)
         checkMenuDuplicates(reservationMenu)
         checkMenuCountRange(reservationMenu)
@@ -16,19 +12,20 @@ class MenuInvalidator(reservationMenu: List<MenuOrder>) {
 
     private fun checkMenuDuplicates(reservationMenu: List<MenuOrder>) {
         require(reservationMenu.size == reservationMenu.distinct().count()) {
-            IllegalMenuException.duplicateMenuItem
+            throw IllegalMenuException.duplicateMenuItem
         }
     }
 
     private fun checkMenuExistence(reservationMenu: List<MenuOrder>) {
         require(return reservationMenu.forEach {
             it.validateOrderMenu()
-        }) { IllegalMenuException.invalidMenuItem }
+        }) { throw IllegalMenuException.invalidMenuItem }
     }
 
     private fun checkMenuCountRange(reservationMenu: List<MenuOrder>) {
-        require(return reservationMenu.forEach {
-            it.validateMenuCountRange()
-        }) { IllegalMenuException.invalidMenuCount }
+        val isValid = reservationMenu.all { it.validateMenuCountRange() }
+        if (!isValid) {
+            throw IllegalMenuException.invalidMenuItem
+        }
     }
 }

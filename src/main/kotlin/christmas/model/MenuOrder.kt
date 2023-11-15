@@ -8,7 +8,7 @@ class MenuOrder(private val menuItem: MenuItem, private val orderedMenuCount: In
     }
 
     fun validateMenuCountRange(): Boolean {
-        return orderedMenuCount >= MIN_MENU_COUNT
+        return orderedMenuCount in MIN_MENU_COUNT..MAX_MENU_COUNT
     }
 
     fun sumMenuCount(totalMenuCount: Int): Int {
@@ -19,7 +19,7 @@ class MenuOrder(private val menuItem: MenuItem, private val orderedMenuCount: In
         return menuItem.getMenuPrice() * orderedMenuCount
     }
 
-    fun validateIsBeverage():Boolean{
+    fun validateIsBeverage(): Boolean {
         return menuItem.getMenuCategory() == MenuCategory.BEVERAGE
     }
 
