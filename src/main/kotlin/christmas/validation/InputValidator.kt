@@ -21,7 +21,7 @@ class InputValidator {
     }
 
     private fun convertReservationDate(input: String): Int{
-        return DataFormatter().parseToInt(input)
+        return DataFormatter().parseToIntDate(input)
     }
 
     private fun validateMenuOrder(reservationMenu: String){

@@ -25,7 +25,7 @@ class MenuManager(private val inputReservationMenu: String) {
     private fun convertReservationMenu(menuStr: String): MenuOrder {
         val splitMenuString = menuStr.split("-")
         val menuName = MenuItem.isMenuAvailable(splitMenuString[0])
-        val menuCount = DataFormatter().parseToInt(splitMenuString[1])
+        val menuCount = DataFormatter().parseToIntMenuCount(splitMenuString[1])
 
         return MenuOrder(menuName, menuCount)
     }
