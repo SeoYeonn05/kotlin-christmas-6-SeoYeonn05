@@ -39,13 +39,13 @@ class OrderDataControllerTest {
             assertEquals(expectedOrderData[i].getMenuItem(), orderMenu[i].getMenuItem())
         }
     }
-    /*@Test
-    fun `존재하지 않는 메뉴 값 입력`() {
+/*    @Test
+    fun `중복 메뉴 값 입력`() {
         val mockInputView = mockk<InputView>()
         val orderDataController = OrderDataController(mockInputView)
 
-        val fakeReservationDate = "25"
-        val fakeReservationMenu = "냠냠-3,초콜릿칩-1"
+        val fakeReservationDate = "21"
+        val fakeReservationMenu = "티본스테이크-3,타파스-1,타파스-1"
         every { mockInputView.requestReservationDate() } returns fakeReservationDate
         every { mockInputView.requestReservationMenu() } returns fakeReservationMenu
 
@@ -53,28 +53,6 @@ class OrderDataControllerTest {
             orderDataController.getOrderMenu()
         }
 
-        assertEquals("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.", exception.message)
-
-    }
-
-    @Test
-    fun `형식에 어긋난 예약 날짜 입력`() {
-        val mockInputView = mockk<InputView>()
-        val orderDataController = OrderDataController(mockInputView)
-
-        val fakeReservationDate = "b"
-        val fakeReservationMenu = "티본스테이크-3,타파스-1"
-        every { mockInputView.requestReservationDate() } returns fakeReservationDate
-        every { mockInputView.requestReservationMenu() } returns fakeReservationMenu
-
-
-        val output = ByteArrayOutputStream()
-        System.setOut(PrintStream(output))
-
-        orderDataController.getOrderDate()
-
-        val outputMessage = output.toString()
-        print("outputMessage $outputMessage")
-        assertTrue(outputMessage.contains("[ERROR]"))
+        assertEquals("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.", exception)
     }*/
 }

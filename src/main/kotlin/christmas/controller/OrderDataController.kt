@@ -12,9 +12,15 @@ class OrderDataController(
     fun getOrderDate(): String {
         return getReservationDate()
     }
+
     fun getOrderMenu(): MutableList<MenuOrder> {
         val inputOrder: String = getReservationOrder()
-        return createMenuOrder(inputOrder)
+        return try {
+            createMenuOrder(inputOrder)
+        } catch (e: IllegalMenuException) {
+            println(e.message)
+            mutableListOf()
+        }
     }
 
     private fun getReservationDate(): String {
