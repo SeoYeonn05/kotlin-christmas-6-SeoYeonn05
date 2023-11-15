@@ -30,6 +30,7 @@ enum class MenuItem(
     CHAMPAGNE(MenuConstants.CHAMPAGNE, 25000, MenuCategory.BEVERAGE),
     NO_MENU(ErrorConstants.ERROR_MESSAGE, 0, MenuCategory.ELSE);
 
+    fun getMenuName() = this.menuName
     fun getMenuPrice() = this.menuPrice
     fun getMenuCategory() = this.menuCategory
 
