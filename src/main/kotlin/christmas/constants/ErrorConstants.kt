@@ -1,4 +1,4 @@
-package christmas.util.constant
+package christmas.constants
 
 object ErrorConstants {
     const val ERROR_MESSAGE = "[ERROR]"

@@ -1,4 +1,4 @@
-package christmas.util.constant
+package christmas.constants
 
 object Constants {
     const val PROMOTION_YEAR = 2023
