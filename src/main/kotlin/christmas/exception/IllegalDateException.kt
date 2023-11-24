@@ -1,6 +1,6 @@
-package christmas.validation.exception
+package christmas.exception
 
-import christmas.util.constant.ErrorConstants
+import christmas.constants.ErrorConstants
 
 class IllegalDateException(
     private val errorMessage: String
