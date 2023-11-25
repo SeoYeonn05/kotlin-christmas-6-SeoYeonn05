@@ -1,17 +1,17 @@
 package christmas.model
 
-import christmas.util.constant.Constants
+import christmas.constants.Constants
 
 
 class OrderProcessor(
     private val inputDate: String,
-    private val orderedMenus: MutableList<MenuOrder>,
+    private val orders: MutableList<Order>,
 ) {
     private var promotionDate: PromotionDate = PromotionDate(inputDate)
     private var totalOrderPrice: Int = 0
     private val availablePromotions: MutableList<DiscountPromotion> = promotionDate.getAvailablePromotions()
     private val promotionApplicator: PromotionApplicator =
-        PromotionApplicator(promotionDate.getReservationDate(), availablePromotions, orderedMenus)
+        PromotionApplicator(promotionDate.getReservationDate(), availablePromotions, orders)
 
     init{
         calculateTotalOrderPrice()
@@ -21,7 +21,7 @@ class OrderProcessor(
 
 
     private fun calculateTotalOrderPrice(){
-        orderedMenus.forEach { menuOrder ->
+        orders.forEach { menuOrder ->
             totalOrderPrice += menuOrder.calculateMenuAmount()
         }
     }
