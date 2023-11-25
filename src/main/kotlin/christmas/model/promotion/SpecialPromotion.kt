@@ -6,6 +6,6 @@ import christmas.model.PromotionApplicator
 
 class SpecialPromotion : Promotion {
     override fun applyPromotion(): Int {
-        return DiscountPromotion.WEEKEND_DISCOUNT_PROMOTION.discountAmount
+        return DiscountPromotion.SPECIAL_DISCOUNT_PROMOTION.discountAmount
     }
 }

@@ -25,11 +25,7 @@ object Constants {
     const val NO_VALUE = "없음"
     const val UNIT = "개"
 
-    fun getPromotionBenefitsPreviewMessage(date: Int): String {
-        promotionDate = date
-        return PROMOTION_BENEFITS_PREVIEW
-    }
-    fun setPromotionDate(date: Int){
+    fun setDateToPreview(date: Int){
         promotionDate = date
         PROMOTION_BENEFITS_PREVIEW = "${PROMOTION_MONTH}월 ${promotionDate}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!"
     }

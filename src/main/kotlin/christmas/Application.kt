@@ -1,14 +1,15 @@
 package christmas
 
-import christmas.controller.PromotionController
+import christmas.controller.ReceiptController
 import christmas.model.OrderContent
 import christmas.view.InputView
 import christmas.view.OutputView
 
 fun main() {
-    val inputView = InputView()
-    val outputView = OutputView()
+    val inputView = InputView.getInstance()
 
     val orderContent: OrderContent = inputView.reservationProcess()
-    PromotionController(orderContent).run()
+    val receipt = ReceiptController(orderContent).getReceipt()
+
+    OutputView(receipt).printReceipt()
 }

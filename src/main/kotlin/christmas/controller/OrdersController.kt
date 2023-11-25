@@ -8,14 +8,14 @@ class OrdersController(
     private val ordersInput: String
 ) {
     private val ordersManager: OrdersManager = OrdersManager()
-    private lateinit var orders: List<Order>
+    private lateinit var orders: MutableList<Order>
 
     init {
         val splitByOrders = splitOrders(ordersInput)
         if (!validOrderFormat(splitByOrders)) {
             throw IllegalMenuException.invalidMenuFormat
         }
-        val orders = createOrders(splitByOrders)
+        orders = createOrders(splitByOrders)
         if (!validOrderLogic(orders)) {
             throw IllegalMenuException.invalidMenuItem
         }
@@ -25,7 +25,7 @@ class OrdersController(
 
     // private 함수에서 필요한 값이 있을 때 MenuController의 생성자를 바로 가져와서 사용할까? 아니면 아래 처럼 매개변수를 입력받아서 init에서 가져오게 할까?
     // 매개변수를 입력받아서 하니 매개변수 값의 이름이나 형식 등이 바뀌면 하나하나 다 바꿔줘야 되는 불편함 발생
-    private fun createOrders(splitByOrders: List<String>): MutableList<Order> {
+    fun createOrders(splitByOrders: List<String>): MutableList<Order> {
         return ordersManager.createOrderedMenu(splitByOrders)
     }
 
@@ -52,7 +52,7 @@ class OrdersController(
     // order의 menuCount를 get으로 가져와서 validate 해야될까? 아니면 menuCount를 public으로 만들어서 바로 가져와서 validate 해야될까?
     fun isValidOrderCountRange(orders: List<Order>): Boolean {
         return orders.all { order ->
-            order.getOrderedMenuCount() in MIN_MENU_COUNT..MAX_MENU_COUNT
+            order.getCount() in MIN_MENU_COUNT..MAX_MENU_COUNT
         }
     }
 
@@ -65,15 +65,15 @@ class OrdersController(
 
     private fun isValidMaximumOrderCount(orders: List<Order>): Boolean {
         var totalMenuCount = 0
-        orders.forEach { menuOrder ->
-            totalMenuCount = menuOrder.sumMenuCount(totalMenuCount)
+        orders.forEach { order ->
+            totalMenuCount += order.getCount()
         }
         return totalMenuCount <= MAX_MENU_COUNT
     }
 
 
     private fun isNotDuplicatedMenu(orders: List<Order>): Boolean {
-        val distinctMenuItems = orders.distinctBy { it.getMenuItem() }
+        val distinctMenuItems = orders.distinctBy { it.getMenu() }
         return distinctMenuItems.size == orders.size
     }
 

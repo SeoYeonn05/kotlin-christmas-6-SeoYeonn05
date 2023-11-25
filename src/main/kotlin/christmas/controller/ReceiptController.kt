@@ -1,51 +1,51 @@
 package christmas.controller
 
 import christmas.model.*
+import christmas.model.receipt.Receipt
 
 class ReceiptController(
-    private val inputDate: String,
-    private val orderedMenus: MutableList<MenuOrder>,
+    private val orderContent: OrderContent
 ) {
-    private lateinit var orderProcessor: OrderProcessor
+    private lateinit var receipt: Receipt
 
-    fun createReceipt(): Receipt {
-        val totalAmount = calculateTotalAmount(orderedMenus)
-        val giveaway = checkGiveaway(totalAmount)
-        val promotionHistory = getPromotionHistory()
-        val allDiscountAmount = calculateAllDiscountAmount(promotionHistory)
-        val amountBenefitDiscount = calculateAllBenefitAmount(giveaway, promotionHistory)
-        val promotionBadge = calculatePromotionBadge(allDiscountAmount)
-        return Receipt(
-            orderedMenus = orderedMenus,
+    init{
+        createReceipt()
+    }
+    fun getReceipt() = receipt
+    private fun createReceipt() {
+        val totalAmount = calculateTotalAmount()
+        val giveaway = PromotionGiveaway(totalAmount).getGiveawayByAmount()
+        val promotionResult = PromotionApplicator(orderContent, calculateTotalAmount()).getPromotionResult()
+        val allDiscountAmount = calculateAllDiscountAmount(promotionResult)
+        val amountBenefitDiscount = calculateAllBenefitAmount(giveaway, promotionResult)
+        val promotionBadge = PromotionBadge(amountBenefitDiscount).givePromotionBadge()
+        receipt = Receipt(
+            orders = orderContent.orders,
             totalAmount = totalAmount,
             giveawayItem = giveaway,
-            promotionHistory = promotionHistory,
+            promotionResult = promotionResult,
             totalBenefitAmount = amountBenefitDiscount,
             totalPromotionAmount = allDiscountAmount,
             promotionBadge = promotionBadge
         )
     }
 
-    private fun calculateTotalAmount(orderedMenus: MutableList<MenuOrder>): Int {
-        orderProcessor = OrderProcessor(inputDate, orderedMenus)
-        return orderProcessor.getTotalOrderPrice()
+    private fun calculateTotalAmount():Int {
+        var totalOrderPrice = 0
+        orderContent.orders.forEach { order ->
+            totalOrderPrice += order.calculateMenuAmount()
+        }
+        return totalOrderPrice
     }
 
-    private fun getPromotionHistory(): MutableMap<DiscountPromotion, Int> {
-        return orderProcessor.getPromotionHistory()
-    }
-
-    private fun calculateAllDiscountAmount(promotionalPrice: MutableMap<DiscountPromotion, Int>): Int {
+    private fun calculateAllDiscountAmount(promotionResult: MutableMap<DiscountPromotion, Int>): Int {
         var allDiscountAmount = 0
-        promotionalPrice.forEach { (_, discountAmount) ->
+        promotionResult.forEach { (_, discountAmount) ->
             allDiscountAmount += discountAmount
         }
         return allDiscountAmount
     }
 
-    private fun checkGiveaway(totalAmount: Int): GiveawayItem {
-        return PromotionGiveaway(totalAmount).getGiveawayByAmount()
-    }
 
     private fun calculateAllBenefitAmount(
         giveawayItem: GiveawayItem,
@@ -56,9 +56,5 @@ class ReceiptController(
             allBenefitAmount += discountAmount
         }
         return allBenefitAmount + giveawayItem.giveawayAmount()
-    }
-
-    private fun calculatePromotionBadge(allDiscountAmount: Int): Badge {
-        return PromotionBadge(allDiscountAmount).givePromotionBadge()
     }
 }

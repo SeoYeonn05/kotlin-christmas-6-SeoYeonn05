@@ -1,61 +1,79 @@
 package christmas.model
 
+import christmas.constants.Constants
+import christmas.model.promotion.ChristmasDDayPromotion
+import christmas.model.promotion.SpecialPromotion
+import christmas.model.promotion.WeekDayPromotion
+import christmas.model.promotion.WeekendDayPromotion
+import christmas.util.DayOfWeekChecker
+
 class PromotionApplicator(
-    private val reservationDate: Int,
-    private val availablePromotions: MutableList<DiscountPromotion>,
-    private val orderedMenus: MutableList<MenuOrder>,
+    private val orderContent: OrderContent,
+    private val totalPrice: Int
 ) {
-    private var promotionalPrice: MutableMap<DiscountPromotion, Int> = mutableMapOf()
-    private val discountCalculator = DiscountCalculator()
+    private var promotionResult: MutableMap<DiscountPromotion, Int> = mutableMapOf()
+    private val dayOfWeek = DayOfWeekChecker()
+    private val date = orderContent.date
+    private val orders = orderContent.orders
 
-    fun applyPromotion(): MutableMap<DiscountPromotion, Int> {
-        availablePromotions.forEach {
-            when (it) {
-                DiscountPromotion.CHRISTMAS_D_DAY_DISCOUNT_PROMOTION -> applyChristmasDDayPromotion(it)
-                DiscountPromotion.WEEKDAY_DISCOUNT_PROMOTION -> applyWeekDayPromotion(it)
-                DiscountPromotion.WEEKEND_DISCOUNT_PROMOTION -> applyWeekendPromotion(it)
-                DiscountPromotion.SPECIAL_DISCOUNT_PROMOTION -> applySpecialPromotion(it)
-                DiscountPromotion.NO_PROMOTION -> mutableMapOf(DiscountPromotion.NO_PROMOTION to 0)
-            }
+    init {
+        if (isPossiblePromotion(totalPrice)) {
+            applyPromotions()
+        } else {
+            promotionResult[DiscountPromotion.NO_PROMOTION] = 0
         }
-        return promotionalPrice
-    }
-    private fun applyChristmasDDayPromotion(promotion: DiscountPromotion){
-        var discountAmount = 1000 + (promotion.getDiscountAmount() * (reservationDate - 1))
-        if (reservationDate> christmasDDay){
-            discountAmount = 0
-        }
-        promotionalPrice[promotion] = discountAmount
     }
 
-    private fun applyWeekDayPromotion(promotion: DiscountPromotion) {
-        var discountAmount = 0
-        var validCategoryMenu = orderedMenus.filter { menuOrder ->
-            menuOrder.getMenuItem().getMenuCategory() == weekdayPromotionApplyMenu
+    private fun applyPromotions(): MutableMap<DiscountPromotion, Int> {
+        if (isChristmasDDayPromotionDate(date)) {
+            promotionResult[DiscountPromotion.CHRISTMAS_D_DAY_DISCOUNT_PROMOTION] =
+                ChristmasDDayPromotion(date).applyPromotion()
         }
-        validCategoryMenu.forEach {
-            discountAmount = discountCalculator.calculateDiscountAmount(promotion, it)
+        if (isWeekdayPromotionDate(date)) {
+            promotionResult[DiscountPromotion.WEEKDAY_DISCOUNT_PROMOTION] =
+                WeekDayPromotion(orders).applyPromotion()
         }
-        promotionalPrice[promotion] = discountAmount    }
+        if (isWeekendPromotionDate(date)) {
+            promotionResult[DiscountPromotion.WEEKEND_DISCOUNT_PROMOTION] =
+                WeekendDayPromotion(orders).applyPromotion()
+        }
+        if (isSpecialPromotionDate(date)) {
+            promotionResult[DiscountPromotion.SPECIAL_DISCOUNT_PROMOTION] =
+                SpecialPromotion().applyPromotion()
+        }
+        return promotionResult
+    }
 
-    private fun applyWeekendPromotion(promotion: DiscountPromotion) {
-        var discountAmount = 0
-        var validCategoryMenu = orderedMenus.filter { menuOrder ->
-            menuOrder.getMenuItem().getMenuCategory() == weekendPromotionApplyMenu
-        }
-        validCategoryMenu.forEach {
-            discountAmount = discountCalculator.calculateDiscountAmount(promotion, it)
-        }
-        promotionalPrice[promotion] = discountAmount
+    fun getPromotionResult() = promotionResult
+
+    private fun isPossiblePromotion(totalPrice: Int): Boolean {
+        return checkTotalOrderPriceDiscount(totalPrice)
     }
-    private fun applySpecialPromotion(promotion: DiscountPromotion) {
-        var discountAmount = specialPromotionDiscount
-        promotionalPrice[promotion] = discountAmount
+
+    private fun checkTotalOrderPriceDiscount(totalPrice: Int): Boolean {
+        return totalPrice >= MINIMUM_TOTAL_ORDER_AMOUNT
     }
+
+    private fun isChristmasDDayPromotionDate(date: Int): Boolean {
+        return DiscountPromotion.CHRISTMAS_D_DAY_DISCOUNT_PROMOTION.isPromotionDay(date)
+    }
+
+    private fun isWeekdayPromotionDate(date: Int): Boolean {
+        var dayOfWeek = dayOfWeek.doDayOfWeek(day = date)
+        return DiscountPromotion.WEEKDAY_DISCOUNT_PROMOTION.isPromotionDay(dayOfWeek)
+    }
+
+    private fun isWeekendPromotionDate(date: Int): Boolean {
+        var dayOfWeek = dayOfWeek.doDayOfWeek(day = date)
+        return DiscountPromotion.WEEKEND_DISCOUNT_PROMOTION.isPromotionDay(dayOfWeek)
+    }
+
+    private fun isSpecialPromotionDate(date: Int): Boolean {
+        var dayOfWeek = dayOfWeek.doDayOfWeek(day = date)
+        return DiscountPromotion.SPECIAL_DISCOUNT_PROMOTION.isPromotionDay(dayOfWeek) || date == Constants.CHRISTMAS_D_DAY
+    }
+
     companion object {
-        const val specialPromotionDiscount = 1000
-        const val christmasDDay = 25
-        val weekdayPromotionApplyMenu = MenuCategory.DESSERT
-        val weekendPromotionApplyMenu = MenuCategory.MAIN
+        const val MINIMUM_TOTAL_ORDER_AMOUNT = 10000
     }
 }

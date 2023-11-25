@@ -59,54 +59,135 @@
             7_12월 이벤트 배지 여부를 출력한다.
 
 ##파일 구조
-  - Model
-    + MenuOrder
-      [O] 메뉴 저장, 메뉴 값 예외처리
-    + MenuItem
-      [O] 메뉴의 이름, 가격, 타입 저장
-    + MenuManager
-      [O] 메뉴 리스트 저장, 메뉴 리스트 예외처리
-    + OrderProcessor
-      [O] 총주문 금액
-      [O] 할인 후 예상 결제 금액 계산
-    + PromotionApplicator
-      [O] 평일, 주말 할인 비용 계산
-      [O] 이벤트에 따른 혜택 내역 적용
-    + PromotionDate
-      [O] 이벤트 날짜 형식 변환 및 저장
-      [O] 입력 날짜에 따른 이벤트 여부 계산
-    + DiscountCalculator
-      [O] 입력 날짜에 따른 이벤트를 적용해 할인된 값 계산
-    + PromotionBadge
-      [O] 이벤트 배지 부여 여부 계산
-    + PromotionGiveaway
-      [O] 증정 메뉴 계산
-    + Receipt
-      [P] 메뉴, 할인 내역, 결제 금액 저장
-    + [O] 혜택 내역에 따른 총혜택 금액 계산
-  - View
-    + InputProcessor 
+  - model
+      OrderContent: 예약 날짜와 예약 메뉴 
+      Menu
+      Order
+  - view
     + InputView
     + OutputView
     + Printer
-  - Controller
-    + PromotionController
-      [O] 사용자 입력을 주문 서비스에 전달
-      [O] 주문 서비스 결과를 뷰에 전달
-    + OrderDataController
-      [O] 사용자 예약 날짜, 메뉴 입력 및 객체 생성
-    + ReceiptController
-      [O] 사용자 주문 계산 후 영수증 생성
+  - controller
+
   - validation
     + InputValidator
     + MenuInvalidator
-  - Util
+  - utils
     + constants
     + InputHandler
     + DataFormatter
     + DayOfWeekChecker
-  
-  
+  - constants
+    + MenuConstants: 메뉴의 이름, 가격, 타입 저장
+    + Constants
+    + ErrorConstants
+
+
+[//]: # (##파일 구조)
+
+[//]: # (- model)
+
+[//]: # (    + MenuOrder)
+
+[//]: # (      [O] 메뉴 저장, 메뉴 값 예외처리)
+
+[//]: # (    + MenuManager)
+
+[//]: # (      [O] 메뉴 리스트 저장, 메뉴 리스트 예외처리)
+
+[//]: # (    + OrderProcessor)
+
+[//]: # (      [O] 총주문 금액)
+
+[//]: # (      [O] 할인 후 예상 결제 금액 계산)
+
+[//]: # (    + PromotionApplicator)
+
+[//]: # (      [O] 평일, 주말 할인 비용 계산)
+
+[//]: # (      [O] 이벤트에 따른 혜택 내역 적용)
+
+[//]: # (    + PromotionDate)
+
+[//]: # (      [O] 이벤트 날짜 형식 변환 및 저장)
+
+[//]: # (      [O] 입력 날짜에 따른 이벤트 여부 계산)
+
+[//]: # (    + DiscountCalculator)
+
+[//]: # (      [O] 입력 날짜에 따른 이벤트를 적용해 할인된 값 계산)
+
+[//]: # (    + PromotionBadge)
+
+[//]: # (      [O] 이벤트 배지 부여 여부 계산)
+
+[//]: # (    + PromotionGiveaway)
+
+[//]: # (      [O] 증정 메뉴 계산)
+
+[//]: # (    + Receipt)
+
+[//]: # (      [P] 메뉴, 할인 내역, 결제 금액 저장)
+
+[//]: # (    + [O] 혜택 내역에 따른 총혜택 금액 계산)
+
+[//]: # (- view)
+
+[//]: # (    + InputProcessor)
+
+[//]: # (    + InputView)
+
+[//]: # (    + OutputView)
+
+[//]: # (    + Printer)
+
+[//]: # (- controller)
+
+[//]: # (    + PromotionController)
+
+[//]: # (      [O] 사용자 입력을 주문 서비스에 전달)
+
+[//]: # (      [O] 주문 서비스 결과를 뷰에 전달)
+
+[//]: # (    + DataController)
+
+[//]: # (      [O] 사용자 예약 날짜, 메뉴 입력 및 객체 생성)
+
+[//]: # (    + MenuController)
+
+[//]: # (      [O] 사용자 주문 계산 후 영수증 생성)
+
+[//]: # (    + ReceiptController)
+
+[//]: # (      [O])
+
+[//]: # (- validation)
+
+[//]: # (    + InputValidator)
+
+[//]: # (    + MenuInvalidator)
+
+[//]: # (- utils)
+
+[//]: # (    + constants)
+
+[//]: # (    + InputHandler)
+
+[//]: # (    + DataFormatter)
+
+[//]: # (    + DayOfWeekChecker)
+
+[//]: # (- constants)
+
+[//]: # (    + MenuConstants)
+
+[//]: # (      메뉴의 이름, 가격, 타입 저장)
+
+[//]: # (    + Constants)
+
+[//]: # (    + ErrorConstants)
+
+
 ## 테스트 문서
 
 ## 고민한 내용

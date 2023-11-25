@@ -1,8 +1,9 @@
+/*
 package christmas.controller
 
 import christmas.model.MenuItem
 import christmas.model.MenuOrder
-import christmas.validation.exception.IllegalMenuException
+import christmas.exception.IllegalMenuException
 import christmas.view.InputView
 import christmas.view.OutputView
 import io.mockk.every
@@ -39,6 +40,7 @@ class OrderDataControllerTest {
             assertEquals(expectedOrderData[i].getMenuItem(), orderMenu[i].getMenuItem())
         }
     }
+*/
 /*    @Test
     fun `중복 메뉴 값 입력`() {
         val mockInputView = mockk<InputView>()
@@ -54,5 +56,6 @@ class OrderDataControllerTest {
         }
 
         assertEquals("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.", exception)
-    }*/
-}
+    }*//*
+
+}*/

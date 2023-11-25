@@ -1,28 +1,37 @@
 package christmas.view
 
-import christmas.model.DayOfWeekType
-import christmas.model.DiscountPromotion
-import christmas.model.GiveawayItem
-import christmas.model.MenuOrder
 import christmas.util.DataFormatter
-import christmas.util.constant.Constants
+import christmas.constants.Constants
+import christmas.model.*
+import christmas.model.receipt.Receipt
 
-class OutputView {
+class OutputView(private val receipt: Receipt) {
     private val print = Printer()
     private val format = DataFormatter()
 
-    fun printPreviewPromotionMessage() {
+    fun printReceipt() {
+        printPreviewMessage()
+        printOrderedMenu(receipt.orderedMenus())
+        printTotalAmount(receipt.totalAmount())
+        printGiveaway(receipt.giveawayItem())
+        printTotalBenefitAmount(receipt.totalBenefitAmount())
+        printDiscountMessage(receipt.giveawayItem(), receipt.promotionHistory())
+        printTotalPaymentAmount(receipt.totalPaymentAmount())
+        printEventBadge(receipt.promotionBadge().badgeName)
+    }
+
+    private fun printPreviewMessage() {
         print.printPreviewPromotionMessage()
     }
 
-    fun printOrderedMenu(orderedMenu: List<MenuOrder>) {
+    private fun printOrderedMenu(orderedMenu: List<Order>) {
         print.printOrderedMenuMessage()
         orderedMenu.forEach {
-            println("${it.getMenuItem().getMenuName()} ${it.getOrderedMenuCount()}${Constants.UNIT}")
+            println("${it.getMenu().itemName} ${it.getCount()}${Constants.UNIT}")
         }
     }
 
-    fun printTotalOrderAmountBeforeDiscount(totalOrderedAmountBeforeDiscount: Int) {
+    private fun printTotalAmount(totalOrderedAmountBeforeDiscount: Int) {
         print.printTotalOrderAmountBeforeDiscountMessage()
         if (totalOrderedAmountBeforeDiscount == 0) {
             println(Constants.NO_VALUE)
@@ -32,7 +41,7 @@ class OutputView {
         }
     }
 
-    fun printGiveaway(giveaway: GiveawayItem) {
+    private fun printGiveaway(giveaway: GiveawayItem) {
         print.printGiveawayMenuMessage()
         if (giveaway == GiveawayItem.NO_GIVEAWAY) {
             println("${giveaway.getGiveaway()}")
@@ -41,7 +50,7 @@ class OutputView {
         }
     }
 
-    fun printDiscountMessage(
+    private fun printDiscountMessage(
         giveaway: GiveawayItem,
         discountAmount: MutableMap<DiscountPromotion, Int>
     ) {
@@ -72,7 +81,7 @@ class OutputView {
         println("$promotionType -$formatAmount${Constants.WON}")
     }
 
-    fun printTotalBenefitAmountAmount(totalBenefitAmount: Int) {
+    private fun printTotalBenefitAmount(totalBenefitAmount: Int) {
         print.printTotalBenefitAmountMessage()
         if (totalBenefitAmount != 0){
             val formatTotalBenefitAmount = format.formatNumberToDecimal(totalBenefitAmount)
@@ -83,13 +92,13 @@ class OutputView {
 
     }
 
-    fun printTotalAmountAfterDiscount(expectedPayment: Int) {
+    private fun printTotalPaymentAmount(paymentAmount: Int) {
         print.printExpectedPaymentAfterDiscountMessage()
-        val formatExpectedPayment = format.formatNumberToDecimal(expectedPayment)
+        val formatExpectedPayment = format.formatNumberToDecimal(paymentAmount)
         println("$formatExpectedPayment${Constants.WON}")
     }
 
-    fun printDecemberEventBadge(eventBadge: String) {
+    private fun printEventBadge(eventBadge: String) {
         print.printDecemberEventBadgeMessage()
         println(eventBadge)
     }

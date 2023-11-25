@@ -1,5 +1,6 @@
 package christmas.view
 
+import christmas.constants.Constants
 import christmas.constants.ErrorConstants
 import christmas.controller.DateController
 import christmas.controller.OrdersController
@@ -33,19 +34,19 @@ class InputView {
                 val inputDate = inputHandler.inputHandler()
                 return DateController(inputDate).getData()
             } catch (e: IllegalDateException) {
-                println("${errorConstants.ERROR_MESSAGE} $e")
+                println("${e.message}")
             }
         }
     }
 
-    private fun requestReservationOrder(): List<Order> {
+    private fun requestReservationOrder(): MutableList<Order> {
         print.printRequestReservationMenuMessage()
         while (true) {
             try {
                 val inputOrder = inputHandler.inputHandler()
                 return OrdersController(inputOrder).getOrders()
             } catch (e: IllegalMenuException) {
-                println("${errorConstants.ERROR_MESSAGE} $e")
+                println("${e.message}")
             }
         }
     }

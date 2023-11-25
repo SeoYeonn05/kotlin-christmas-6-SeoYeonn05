@@ -1,5 +1,6 @@
 package christmas.controller
 
+import christmas.constants.Constants
 import christmas.exception.IllegalDateException
 import christmas.util.DataFormatter
 
@@ -14,6 +15,7 @@ class DateController(
             throw IllegalDateException.invalidNumericValue
         }
         convertInputToDate(dateInput)
+        Constants.setDateToPreview(date)
         if (!validDateLogic(date)){
             throw IllegalDateException.invalidRangeDate
         }

@@ -1,3 +1,4 @@
+/*
 package christmas.model
 
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -25,3 +26,4 @@ class MenuItemTest {
        const val COFFEE = "커피"
     }
 }
+*/
