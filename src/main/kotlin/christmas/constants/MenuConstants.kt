@@ -27,7 +27,7 @@ enum class MenuItem(
     CHAMPAGNE("샴페인", 25000, MenuCategory.BEVERAGE),
     NO_MENU("없음", 0, MenuCategory.ELSE);
     companion object {
-        fun isMenuAvailable(menuName: String): MenuItem {
+        fun stringToMenuItem(menuName: String): MenuItem {
             return values().find { it.itemName == menuName } ?: NO_MENU
         }
     }

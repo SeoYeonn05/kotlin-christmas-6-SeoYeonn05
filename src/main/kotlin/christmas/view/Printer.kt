@@ -1,6 +1,6 @@
 package christmas.view
 
-import christmas.util.constant.Constants
+import christmas.constants.Constants
 
 class Printer {
     internal fun printStartMessage() {

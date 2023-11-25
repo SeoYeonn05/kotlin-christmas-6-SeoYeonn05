@@ -10,13 +10,6 @@ class OrdersController(
     private val ordersManager: OrdersManager = OrdersManager()
     private lateinit var orders: List<Order>
 
-    /*
-    기본 입력 형식이 맞는지 확인 -> throw Exception
-    Orders 생성
-    Order의 validaton 진행 -> throw Exception
-    값 반환
-
-    * */
     init {
         val splitByOrders = splitOrders(ordersInput)
         if (!validOrderFormat(splitByOrders)) {

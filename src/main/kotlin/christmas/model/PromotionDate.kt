@@ -2,8 +2,8 @@ package christmas.model
 
 import christmas.util.DataFormatter
 import christmas.util.DayOfWeekChecker
-import christmas.util.constant.Constants
-import christmas.validation.exception.IllegalDateException
+import christmas.constants.Constants
+import christmas.exception.IllegalDateException
 
 enum class DayOfWeekType(val dayOfWeekNum: Int) {
     MONDAY(dayOfWeekNum = 1),
