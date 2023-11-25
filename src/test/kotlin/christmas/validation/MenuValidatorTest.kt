@@ -2,7 +2,7 @@
 package christmas.validation
 
 import christmas.constants.MenuItem
-import christmas.model.Order
+import christmas.model.order.Order
 import christmas.constants.ErrorConstants
 import christmas.exception.IllegalMenuException
 import org.junit.jupiter.api.Assertions

@@ -1,8 +1,8 @@
 package christmas.controller
 
 import christmas.exception.IllegalMenuException
-import christmas.model.Order
-import christmas.model.OrdersManager
+import christmas.model.order.Order
+import christmas.model.order.OrdersManager
 
 class OrdersController(
     private val ordersInput: String

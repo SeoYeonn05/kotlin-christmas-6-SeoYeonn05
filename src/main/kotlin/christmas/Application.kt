@@ -1,7 +1,7 @@
 package christmas
 
 import christmas.controller.ReceiptController
-import christmas.model.OrderContent
+import christmas.model.order.OrderContent
 import christmas.view.InputView
 import christmas.view.OutputView
 

@@ -2,8 +2,7 @@ package christmas.model.promotion
 
 import christmas.constants.MenuCategory
 import christmas.model.DiscountPromotion
-import christmas.model.Order
-import christmas.model.PromotionApplicator
+import christmas.model.order.Order
 
 class WeekDayPromotion(private val orders: MutableList<Order>) : Promotion {
     override fun applyPromotion(): Int {

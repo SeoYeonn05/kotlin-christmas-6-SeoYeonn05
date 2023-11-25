@@ -1,6 +1,8 @@
 package christmas.controller
 
 import christmas.model.*
+import christmas.model.order.OrderContent
+import christmas.model.promotion.PromotionApplicator
 import christmas.model.receipt.Receipt
 
 class ReceiptController(

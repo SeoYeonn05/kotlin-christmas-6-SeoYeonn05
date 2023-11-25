@@ -1,13 +1,12 @@
 package christmas.view
 
-import christmas.constants.Constants
 import christmas.constants.ErrorConstants
 import christmas.controller.DateController
 import christmas.controller.OrdersController
 import christmas.exception.IllegalDateException
 import christmas.exception.IllegalMenuException
-import christmas.model.Order
-import christmas.model.OrderContent
+import christmas.model.order.Order
+import christmas.model.order.OrderContent
 import christmas.util.InputHandler
 
 class InputView {

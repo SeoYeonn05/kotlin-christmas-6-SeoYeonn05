@@ -1,7 +1,6 @@
-package christmas.model
+package christmas.model.order
 
 import christmas.constants.MenuItem
-import christmas.exception.IllegalMenuException
 import christmas.util.DataFormatter
 
 

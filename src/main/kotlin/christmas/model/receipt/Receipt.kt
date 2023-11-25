@@ -3,7 +3,7 @@ package christmas.model.receipt
 import christmas.model.Badge
 import christmas.model.DiscountPromotion
 import christmas.model.GiveawayItem
-import christmas.model.Order
+import christmas.model.order.Order
 
 
 // 주문 계산 결과를 데이터 클래스로 관리하는 게 맞을까?

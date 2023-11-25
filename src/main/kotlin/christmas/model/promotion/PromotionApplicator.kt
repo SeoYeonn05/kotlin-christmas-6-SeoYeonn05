@@ -1,10 +1,8 @@
-package christmas.model
+package christmas.model.promotion
 
 import christmas.constants.Constants
-import christmas.model.promotion.ChristmasDDayPromotion
-import christmas.model.promotion.SpecialPromotion
-import christmas.model.promotion.WeekDayPromotion
-import christmas.model.promotion.WeekendDayPromotion
+import christmas.model.DiscountPromotion
+import christmas.model.order.OrderContent
 import christmas.util.DayOfWeekChecker
 
 class PromotionApplicator(

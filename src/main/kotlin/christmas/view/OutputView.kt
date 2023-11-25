@@ -3,6 +3,7 @@ package christmas.view
 import christmas.util.DataFormatter
 import christmas.constants.Constants
 import christmas.model.*
+import christmas.model.order.Order
 import christmas.model.receipt.Receipt
 
 class OutputView(private val receipt: Receipt) {

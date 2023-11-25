@@ -1,4 +1,4 @@
-package christmas.model
+package christmas.model.order
 
 import christmas.constants.MenuCategory
 import christmas.constants.MenuItem
