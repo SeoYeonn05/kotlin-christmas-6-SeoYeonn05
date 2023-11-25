@@ -1,6 +1,6 @@
 package christmas.model
 
-import christmas.validation.exception.IllegalPromotionException
+import christmas.exception.IllegalPromotionException
 
 class DiscountCalculator {
     fun calculateDiscountAmount(

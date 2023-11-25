@@ -1,6 +1,6 @@
 package christmas.util
 
-import christmas.util.constant.Constants
+import christmas.constants.Constants
 import java.time.LocalDate
 
 class DayOfWeekChecker {

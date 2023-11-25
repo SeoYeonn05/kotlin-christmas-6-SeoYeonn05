@@ -1,8 +1,7 @@
 package christmas.util
 
-import christmas.util.constant.ErrorConstants
-import christmas.validation.exception.IllegalDateException
-import christmas.validation.exception.IllegalMenuException
+import christmas.exception.IllegalDateException
+import christmas.exception.IllegalMenuException
 import java.text.DecimalFormat
 
 class DataFormatter {
@@ -22,18 +21,17 @@ class DataFormatter {
         val dec = DecimalFormat("#,###")
         return dec.format(num)
     }
-    fun parseToIntMenuCount(input: String): Int {
+
+    // 이거 예외처리 어떻게 하면 좋을까?
+    fun stringToInt(input: String): Int {
         return try {
-            val intMenuCount = input.toInt()
-            if (intMenuCount < 0) {
-                throw IllegalMenuException.invalidMenuCount
-            }
-            intMenuCount
+            input.toInt()
         } catch (e: NumberFormatException) {
-            throw IllegalMenuException.invalidMenuCount
+            ERROR_NUM
         }
     }
-    companion object{
-         val ERROR_NUM = -1
+
+    companion object {
+        const val ERROR_NUM = -1
     }
 }
